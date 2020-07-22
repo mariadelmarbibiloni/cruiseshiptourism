@@ -1,4 +1,4 @@
-import cruiseshiptourism.tasks as tsk
+import tasks as tsk
 
 
 class Tourist:

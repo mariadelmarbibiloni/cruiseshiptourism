@@ -39,7 +39,7 @@ def euclidean_distance(x, y):
 
 def get_distance_matrix(lat, lon):
     coor_list = list(zip(lat, lon))
-    return squareform(pdist(coor_list, lambda point1, point2: vincenty(point1, point2, miles=False)))
+    return squareform(pdist(coor_list, lambda p1, p2: vincenty(p1, p2, miles=False)))
 
 
 # Insert row i as dist_matrix to get posibilities vector for task i
