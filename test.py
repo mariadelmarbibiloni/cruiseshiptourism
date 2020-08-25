@@ -14,7 +14,7 @@ t5 = ("Plaza mayor", 39.571371, 2.651813, 0.35, tsk.standard_penalitation)
 tasks_ls = [t0, t1, t2, t3, t4, t5]
 tasks = pd\
     .DataFrame(data=np.array(tasks_ls,
-                             dtype=[("name", np.object),
+                             dtype=[("place", np.object),
                                     ("latitude", np.float64),
                                     ("longitude", np.float64),
                                     ("utility", np.float64),

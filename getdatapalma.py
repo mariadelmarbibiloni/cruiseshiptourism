@@ -26,7 +26,7 @@ def valueifnull(value, idx=0):
 
 
 dataframe = pd.DataFrame({
-    "name": pd.Series([], dtype='str'),
+    "place": pd.Series([], dtype='str'),
     "description": pd.Series([], dtype='str'),
     "latitude": pd.Series([], dtype='float'),
     "longitude": pd.Series([], dtype='float'),
@@ -37,7 +37,7 @@ dataframe = pd.DataFrame({
 pointsofinterest = data_list[0][0][0][9][0]
 for pointinfo in pointsofinterest:
     point = {
-        "name":  valueifnull(pointinfo[0][1]),
+        "place":  valueifnull(pointinfo[0][1]),
         "description":  valueifnull(pointinfo[0][2]),
         "latitude": valueifnull(pointinfo[0][15], 0),
         "longitude": valueifnull(pointinfo[0][15], 1),
