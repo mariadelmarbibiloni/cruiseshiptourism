@@ -1,0 +1,58 @@
+place,description,latitude,longitude,stars,reviews,utility,update_utility
+cruise ship,tourist cruise ship,39.568276000000004,2.63764,0.0,0.0,0.0,<function cruise_utility at 0x7ff5430a6af0>
+Catedral-Basílica de Santa María de Mallorca,Gothic place of worship on the seafront,39.5674251,2.6482994,4.67475,31176.0,0.967475,<function high_penalitation at 0x7ff5430a6a60>
+Castell de Bellver,Hilltop 1300s castle for panoramic views,39.5638143,2.6193542,4.4362435,10446.0,0.6111570674749808,<function high_penalitation at 0x7ff5430a6a60>
+Royal Palace of La Almudaina,Historic palace of the Royal Family,39.5678864,2.6470222000000003,4.4203462999999985,2310.0,0.4790823590223248,<function high_penalitation at 0x7ff5430a6a60>
+Tren Soller,Scenic electric railway dating to 1912,39.57666500000001,2.653782,4.3965607,5757.0,0.5319867089530408,<function standard_penalitation at 0x7ff511d80820>
+Es Baluard Museu d'Art Contemporani de Palma,Modern & contemporary art collection,39.5701391,2.6411122,4.257859,2513.0,0.4660893385424686,<function standard_penalitation at 0x7ff511d80820>
+Plaza Mayor,Historic public square with craft market,39.571371299999996,2.6518132000000003,4.244744,21071.0,0.7624106329997433,<function standard_penalitation at 0x7ff511d80820>
+Poble Espanyol de Palma,Venue with recreated Spanish landmarks,39.5727196,2.6279683,4.057201999999998,2430.0,0.4446924863741339,<function standard_penalitation at 0x7ff511d80820>
+Lonja de Mallorca,Historic building with Gothic design,39.568358,2.6443366000000004,4.4412065,1956.0,0.4754909348344881,<function standard_penalitation at 0x7ff511d80820>
+Born de Palma,Historic street with high-end shopping,39.5709528,2.647002,,,0.1,<function standard_penalitation at 0x7ff511d80820>
+Port of Palma de Mallorca,Marina and lighthouse,39.557530799999995,2.6319561,4.4956045,910.0,0.4641550099178856,<function standard_penalitation at 0x7ff511d80820>
+Arab Baths of Palma de Mallorca,Ancient Arab baths with serene gardens,39.56690560000001,2.6511472,3.661805,2194.0,0.4013678235822428,<function standard_penalitation at 0x7ff511d80820>
+Mercat de l’Olivar,Historic hall for gourmet foods & events,39.57374779999999,2.6534932,4.46479,12610.0,0.6487179017192712,<function standard_penalitation at 0x7ff511d80820>
+Sant @en.francesc,Ornate 13th-century church & convent,39.5689729,2.6531124,4.488288400000001,555.0,0.4577299177521171,<function standard_penalitation at 0x7ff511d80820>
+"Museu Fundación Juan March, Palma",Modern Spanish art in a historic space,39.5722,2.6519999999999997,4.5310172999999985,403.0,0.4595650351064921,<function high_penalitation at 0x7ff5430a6a60>
+Parc de la Mar,Cathedral views & a serene lagoon,39.5655231,2.6500923,4.5,240.0,0.4538491147036182,<function standard_penalitation at 0x7ff511d80820>
+Plaça de Cort,Hiking area,39.5696224,2.6500725,4.5,2.0,0.4500320759558635,<function low_penalitation at 0x7ff5430a69d0>
+Mercado Gastronómico San Juan,Lively food hall in a historic building,39.58494260000001,2.6500909,4.0886616999999985,3034.0,0.4575253950449063,<function standard_penalitation at 0x7ff511d80820>
+Hort del Rei,Garden and park,39.5681562,2.6464817000000003,4.4130435,598.0,0.4508950608031818,<function standard_penalitation at 0x7ff511d80820>
+Església de Santa Eulàlia,Church and history,39.569511999999996,2.6509009999999997,4.278366,327.0,0.43308101878367977,<function standard_penalitation at 0x7ff511d80820>
+Can Pere Antoni,Beach,39.5624544,2.6622873,4.16713415,380.0,0.4228078466140621,<function standard_penalitation at 0x7ff511d80820>
+Casal Solleric,Cultural center with exhibitions,39.5708333,2.6463889,4.3910446,335.0,0.4444771826071337,<function standard_penalitation at 0x7ff511d80820>
+Museo de Mallorca,Showcase for local history & art,39.5672221,2.6507305,4.074766,214.0,0.4109087272773929,<function high_penalitation at 0x7ff5430a6a60>
+Ayuntamiento de Palma de Mallorca,City or town hall,39.5693815,2.650158,3.832258,155.0,0.3857116865794201,<function standard_penalitation at 0x7ff511d80820>
+Plaça de toros de Palma,Bullring hosting concerts & events,39.5835228,2.6583326,3.9937205,637.0,0.4095882419425199,<function low_penalitation at 0x7ff5430a69d0>
+Gran Hotel,"Modernisme, art nouveau, architecture, antoni gaudí, and art",39.5716586,2.6496785,,,0.1,<function standard_penalitation at 0x7ff511d80820>
+Convent de Santa Clara,"Convent, monastery, and architecture",39.566825,2.6517215,4.580247,243.0,0.4619219286374134,<function standard_penalitation at 0x7ff511d80820>
+Rambla de Palma,Tree-lined promenade with flower kiosks,39.5741381,2.6488639,,,0.1,<function standard_penalitation at 0x7ff511d80820>
+Plaza España,Historical landmark,39.5756724,2.6536351,4.2577095,10085.0,0.5875139574416217,<function standard_penalitation at 0x7ff511d80820>
+Museu Diocesà de Mallorca,Religious museum in a 1200s palace,39.56690560000001,2.6490567000000005,4.139535,43.0,0.4146431330510649,<function high_penalitation at 0x7ff5430a6a60>
+Basilica of St. Michael,Catholic church,39.572883,2.6520487999999998,4.5523114,822.0,0.4684143578598922,<function standard_penalitation at 0x7ff511d80820>
+Sa Feixina Park,Park,39.5707218,2.6402639999999997,4.318126,2455.0,0.4711858358224276,<function standard_penalitation at 0x7ff511d80820>
+Fundación Bartolomé March,Art & antique books in an elegant space,39.56863870000001,2.6474609,4.508197,122.0,0.4527763333076726,<function standard_penalitation at 0x7ff511d80820>
+Avenida Jaime III,Elegant & upscale shopping street,39.572155,2.6446941,,,0.1,<function standard_penalitation at 0x7ff511d80820>
+Mercat Pere Garau,Longtime market for local food vendors,39.57470870000001,2.6643003,4.2020735999999985,6077.0,0.5176701518911982,<function standard_penalitation at 0x7ff511d80820>
+Can Forteza Rey,Art nouveau and antoni gaudí,39.5708474,2.6513069,4.505050700000001,99.0,0.4520928298152426,<function standard_penalitation at 0x7ff511d80820>
+Gerhardt Braun Gallery,Art and art museum,39.5707487,2.6445513,4.625,8.0,0.4626283038234539,<function standard_penalitation at 0x7ff511d80820>
+CaixaForum Palma,"Art exhibition, modernisme, and art",39.5716495,2.6500623000000005,4.4051385000000005,1012.0,0.4567442836669233,<function standard_penalitation at 0x7ff511d80820>
+Consolat de Mar de Palma,Local government office,39.5689156,2.643669,4.142857,14.0,0.4145102316910445,<function standard_penalitation at 0x7ff511d80820>
+Passeig Mallorca,Route,39.5738054,2.6421924,,,0.1,<function standard_penalitation at 0x7ff511d80820>
+Parque Sa Riera,Green space with a playground & cafe,39.5853097,2.6372297,4.2444196,896.0,0.4388119882268411,<function standard_penalitation at 0x7ff511d80820>
+Centro Cultural Can Balaguer,Architecture,39.5716283,2.6477532000000004,4.5392156,204.0,0.4571933074980754,<function standard_penalitation at 0x7ff511d80820>
+Balearic Transfer,Taxis,39.570658,2.652464,4.0370370000000015,27.0,0.40413672540415707,<function standard_penalitation at 0x7ff511d80820>
+Mission: Escape. Escape Room Mallorca,Art gallery and art,39.5790039,2.6514053000000004,4.820652,368.0,0.4879671758788812,<function standard_penalitation at 0x7ff511d80820>
+Plaza Del Mercat,Park,39.571317799999996,2.6489355,4.295351,1097.0,0.4471287617911214,<function low_penalitation at 0x7ff5430a69d0>
+Parc de les Estacions,City park,39.5780437,2.6571715,3.9845679,2592.0,0.4400272287990762,<function standard_penalitation at 0x7ff511d80820>
+Device to Root out Evil,Tourist attraction,39.5712128,2.6420976,3.9890711,183.0,0.4018420599615089,<function standard_penalitation at 0x7ff511d80820>
+Roman Catholic Diocese of Majorca,Catholic church,39.566581,2.653886,4.769231,13.0,0.4771315937131126,<function standard_penalitation at 0x7ff511d80820>
+"Estàtua ""Es Foner""",Sculpture,39.5675739,2.6461574,4.4736843,38.0,0.4479778731614063,<function standard_penalitation at 0x7ff511d80820>
+Can Vivot,Tourist attraction,39.5696586,2.6520852,4.75,16.0,0.4752566076469079,<function standard_penalitation at 0x7ff511d80820>
+Plaça del Rei Joan Carles I,Town square,39.57127560000001,2.647002,,,0.1,<function low_penalitation at 0x7ff5430a69d0>
+tapas-tour,Point of interest,39.5754451,2.6506976000000004,,,0.1,<function standard_penalitation at 0x7ff511d80820>
+GOB - Grup Balear d'Ornitologia I Defensa de la Naturalesa,Nature,39.5790126,2.6533713000000003,4.347826,23.0,0.4351514734924301,<function standard_penalitation at 0x7ff511d80820>
+Monestir de la Real,Monastery and convent,39.6043975,2.6401675,4.4117646,17.0,0.4414491056248396,<function standard_penalitation at 0x7ff511d80820>
+Ca'n Oms,Historical landmark,39.5687955,2.6498445,4.25,8.0,0.4251283038234539,<function standard_penalitation at 0x7ff511d80820>
+La Misericòrdia,Art,39.574852,2.6469633999999997,4.286533,349.0,0.4342505542981781,<function standard_penalitation at 0x7ff511d80820>
+ABA ART LAB,Art,39.5711061,2.642582,4.7272725,44.0,0.4734329210289966,<function standard_penalitation at 0x7ff511d80820>
