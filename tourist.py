@@ -19,12 +19,12 @@ class Tourist:
 
         print("time:", end=" ")
         while time < 20:
-            posibilities = tsk.get_transition_matrix(dist_matrix[i], tasks.utility, theta, 2)
-            i = tsk.choice_task(posibilities)
+            possibilities = tsk.get_transition_matrix(dist_matrix[i], tasks.utility, theta, 2)
+            i = tsk.choice_task(possibilities)
             time += 1
             print(time, end=" ")
             self.task_route[time] = i
             if i:
-                tasks.utility[i] = tasks.update_utility[i](tasks.utility[i])
-            tasks.utility[0] = tsk.cruise_utility(time, tasks.utility, breaks=(8, 10))
+                tasks.loc[[i], ["utility"]] = tasks.update_utility[i](tasks.utility[i])
+            tasks.loc[[0], ["utility"]] = tsk.cruise_utility(time, tasks.utility, breaks=(8, 10))
             self.task_list[time] = tasks.iloc[:, 0:-1].copy()
