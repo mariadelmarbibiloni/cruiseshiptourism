@@ -47,7 +47,7 @@ def get_transition_matrix(dist_matrix, utilities, theta, n):
     utilities_ = utilities
     if dist_matrix.ndim == 2:
         utilities_ = utilities.to_list()
-    return (theta**n)*utilities_/(theta**n + dist_matrix)
+    return (theta**n)*utilities_/(theta**n + dist_matrix**n)
 
 
 def choice_task(posibilities):
