@@ -4,15 +4,15 @@ from scipy.spatial.distance import pdist, squareform
 from vincenty import vincenty
 
 
-def standard_penalitation(utility):
+def standard_penalty(utility):
     return utility/4
 
 
-def low_penalitation(utility):
+def low_penalty(utility):
     return utility/2
 
 
-def high_penalitation(utility):
+def high_penalty(utility):
     return utility/8
 
 
