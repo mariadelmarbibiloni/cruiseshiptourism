@@ -30,7 +30,7 @@ def cruise_utility(time, utilities, breaks=(8, 10)):
     else:
         lambda_ = 1
 
-    return lambda_*u_max + (1-lambda_)*u_min
+    return lambda_*u_max/2 + (1-lambda_)*2*u_min
 
 
 def euclidean_distance(x, y):
