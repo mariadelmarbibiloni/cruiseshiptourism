@@ -1,58 +1,57 @@
 place,description,latitude,longitude,stars,reviews,utility
 cruise ship,tourist cruise ship,39.568276,2.63764,0.0,0.0,0.0
-Catedral-Basílica de Santa María de Mallorca,Gothic place of worship on the seafront,39.5674251,2.6482994,4.67475,31176.0,0.9674750000000001
-Castell de Bellver,Hilltop 1300s castle for panoramic views,39.5638143,2.6193542,4.4362435,10446.0,0.6111570674749808
-Royal Palace of La Almudaina,Historic palace of the Royal Family,39.5678864,2.6470222000000003,4.420346299999999,2310.0,0.47908235902232477
-Tren Soller,Scenic electric railway dating to 1912,39.576665000000006,2.653782,4.3965607,5757.0,0.5319867089530408
-Es Baluard Museu d'Art Contemporani de Palma,Modern & contemporary art collection,39.5701391,2.6411122000000002,4.257859,2513.0,0.4660893385424686
-Plaza Mayor,Historic public square with craft market,39.5713713,2.6518132000000003,4.244744,21071.0,0.7624106329997433
-Poble Espanyol de Palma,Venue with recreated Spanish landmarks,39.5727196,2.6279682999999996,4.057201999999999,2430.0,0.4446924863741339
-Lonja de Mallorca,Historic building with Gothic design,39.568358,2.6443366000000004,4.4412065,1956.0,0.47549093483448807
-Born de Palma,Historic street with high-end shopping,39.5709528,2.647002,,,0.1
-Port of Palma de Mallorca,Marina and lighthouse,39.5575308,2.6319561,4.4956045,910.0,0.46415500991788555
-Arab Baths of Palma de Mallorca,Ancient Arab baths with serene gardens,39.566905600000005,2.6511472,3.661805,2194.0,0.40136782358224277
-Mercat de l’Olivar,Historic hall for gourmet foods & events,39.57374779999999,2.6534932,4.46479,12610.0,0.6487179017192712
-Sant @en.francesc,Ornate 13th-century church & convent,39.5689729,2.6531124,4.488288400000001,555.0,0.45772991775211713
-"Museu Fundación Juan March, Palma",Modern Spanish art in a historic space,39.5722,2.652,4.531017299999999,403.0,0.4595650351064921
-Parc de la Mar,Cathedral views & a serene lagoon,39.5655231,2.6500923,4.5,240.0,0.45384911470361816
-Plaça de Cort,Hiking area,39.5696224,2.6500725,4.5,2.0,0.4500320759558635
-Mercado Gastronómico San Juan,Lively food hall in a historic building,39.584942600000005,2.6500909,4.088661699999999,3034.0,0.45752539504490625
-Hort del Rei,Garden and park,39.568156200000004,2.6464817000000003,4.4130435,598.0,0.45089506080318187
+Catedral-Basílica de Santa María de Mallorca,Gothic place of worship on the seafront,39.5674251,2.6482994,4.67475,31176.0,0.9512125000000001
+Castell de Bellver,Hilltop 1300s castle for panoramic views,39.5638143,2.6193542,4.4362435,10446.0,0.7492028837374903
+Royal Palace of La Almudaina,Historic palace of the Royal Family,39.5678864,2.6470222,4.4203463,2310.0,0.6815758095111625
+Tren Soller,Scenic electric railway dating to 1912,39.576665,2.653782,4.3965607,5757.0,0.7056494244765203
+Es Baluard Museu d'Art Contemporani de Palma,Modern & contemporary art collection,39.5701391,2.6411122,4.257859,2513.0,0.6588305692712343
+Plaza Mayor,Historic public square with craft market,39.5713713,2.6518132,4.244744,21071.0,0.8056797164998717
+Poble Espanyol de Palma,Venue with recreated Spanish landmarks,39.5727196,2.6279683,4.057202,2430.0,0.6280664431870671
+Lonja de Mallorca,Historic building with Gothic design,39.568358,2.6443366,4.4412065,1956.0,0.681866117417244
+Born de Palma,Historic street with high-end shopping,39.5709528,2.647002,,,0.11
+Port of Palma de Mallorca,Marina and lighthouse,39.5575308,2.6319561,4.4956045,910.0,0.6816379549589429
+Arab Baths of Palma de Mallorca,Ancient Arab baths with serene gardens,39.5669056,2.6511472,3.661805,2194.0,0.5668644117911215
+Mercat de l’Olivar,Historic hall for gourmet foods & events,39.5737478,2.6534932,4.46479,12610.0,0.7708379508596355
+Sant @en.francesc,Ornate 13th-century church & convent,39.5689729,2.6531124,4.4882884,555.0,0.6776937988760585
+"Museu Fundación Juan March, Palma",Modern Spanish art in a historic space,39.5722,2.652,4.5310173,403.0,0.6828842475532462
+Parc de la Mar,Cathedral views & a serene lagoon,39.5655231,2.6500923,4.5,240.0,0.6769245573518091
+Plaça de Cort,Hiking area,39.5696224,2.6500725,4.5,2.0,0.6750160379779317
+Mercado Gastronómico San Juan,Lively food hall in a historic building,39.5849426,2.6500909,4.0886617,3034.0,0.6376288675224532
+Hort del Rei,Garden and park,39.5681562,2.6464817,4.4130435,598.0,0.6667518804015908
 Església de Santa Eulàlia,Church and history,39.569512,2.650901,4.278366,327.0,0.43308101878367977
-Can Pere Antoni,Beach,39.5624544,2.6622873,4.16713415,380.0,0.42280784661406207
-Casal Solleric,Cultural center with exhibitions,39.5708333,2.6463889,4.3910446,335.0,0.44447718260713365
-Museo de Mallorca,Showcase for local history & art,39.5672221,2.6507305,4.074766,214.0,0.4109087272773929
-Ayuntamiento de Palma de Mallorca,City or town hall,39.5693815,2.6501580000000002,3.8322580000000004,155.0,0.3857116865794201
-Plaça de toros de Palma,Bullring hosting concerts & events,39.5835228,2.6583326,3.9937205000000002,637.0,0.4095882419425199
-Gran Hotel,"Modernisme, art nouveau, architecture, antoni gaudí, and art",39.5716586,2.6496785,,,0.1
-Convent de Santa Clara,"Convent, monastery, and architecture",39.566825,2.6517215,4.580247,243.0,0.4619219286374134
-Rambla de Palma,Tree-lined promenade with flower kiosks,39.5741381,2.6488639,,,0.1
-Plaza España,Historical landmark,39.5756724,2.6536351000000002,4.2577095,10085.0,0.5875139574416217
-Museu Diocesà de Mallorca,Religious museum in a 1200s palace,39.566905600000005,2.6490567000000005,4.1395349999999995,43.0,0.41464313305106487
-Basilica of St. Michael,Catholic church,39.572883000000004,2.6520488,4.5523114,822.0,0.4684143578598922
-Sa Feixina Park,Park,39.5707218,2.640264,4.318126,2455.0,0.47118583582242757
-Fundación Bartolomé March,Art & antique books in an elegant space,39.56863870000001,2.6474609,4.508197,122.0,0.4527763333076726
-Avenida Jaime III,Elegant & upscale shopping street,39.572155,2.6446941,,,0.1
-Mercat Pere Garau,Longtime market for local food vendors,39.5747087,2.6643003,4.202073599999999,6077.0,0.5176701518911982
-Can Forteza Rey,Art nouveau and antoni gaudí,39.5708474,2.6513069,4.505050700000001,99.0,0.45209282981524257
-Gerhardt Braun Gallery,Art and art museum,39.5707487,2.6445513,4.625,8.0,0.46262830382345393
-CaixaForum Palma,"Art exhibition, modernisme, and art",39.5716495,2.6500623000000005,4.4051385000000005,1012.0,0.4567442836669233
-Consolat de Mar de Palma,Local government office,39.568915600000004,2.643669,4.142857,14.0,0.41451023169104445
-Passeig Mallorca,Route,39.5738054,2.6421924,,,0.1
-Parque Sa Riera,Green space with a playground & cafe,39.5853097,2.6372297000000002,4.2444196,896.0,0.4388119882268411
-Centro Cultural Can Balaguer,Architecture,39.5716283,2.6477532000000004,4.5392155999999995,204.0,0.4571933074980754
-Balearic Transfer,Taxis,39.570658,2.652464,4.037037000000001,27.0,0.40413672540415707
-Mission: Escape. Escape Room Mallorca,Art gallery and art,39.5790039,2.6514053000000004,4.820652,368.0,0.48796717587888117
-Plaza Del Mercat,Park,39.5713178,2.6489355,4.295351,1097.0,0.4471287617911214
-Parc de les Estacions,City park,39.5780437,2.6571715,3.9845678999999996,2592.0,0.4400272287990762
-Device to Root out Evil,Tourist attraction,39.5712128,2.6420976,3.9890711000000003,183.0,0.40184205996150885
-Roman Catholic Diocese of Majorca,Catholic church,39.566581,2.653886,4.7692309999999996,13.0,0.4771315937131126
-"Estàtua ""Es Foner""",Sculpture,39.5675739,2.6461574,4.4736843,38.0,0.44797787316140625
-Can Vivot,Tourist attraction,39.569658600000004,2.6520852,4.75,16.0,0.47525660764690786
-Plaça del Rei Joan Carles I,Town square,39.57127560000001,2.647002,,,0.1
-tapas-tour,Point of interest,39.5754451,2.6506976000000004,,,0.1
-GOB - Grup Balear d'Ornitologia I Defensa de la Naturalesa,Nature,39.5790126,2.6533713000000003,4.347826,23.0,0.4351514734924301
-Monestir de la Real,Monastery and convent,39.6043975,2.6401675,4.4117646,17.0,0.44144910562483963
-Ca'n Oms,Historical landmark,39.5687955,2.6498445,4.25,8.0,0.4251283038234539
-La Misericòrdia,Art,39.574852,2.6469634,4.286533,349.0,0.4342505542981781
-ABA ART LAB,Art,39.5711061,2.642582,4.7272725,44.0,0.47343292102899664
+Can Pere Antoni,Beach,39.5624544,2.6622873,4.167134150000001,380.0,0.4228078466140622
+Casal Solleric,Cultural center with exhibitions,39.5708333,2.6463889,4.3910446,335.0,0.6613430513035667
+Museo de Mallorca,Showcase for local history & art,39.5672221,2.6507305,4.074766,214.0,0.6129309636386965
+Ayuntamiento de Palma de Mallorca,City or town hall,39.5693815,2.650158,3.832258,155.0,0.5760816432897101
+Plaça de toros de Palma,Bullring hosting concerts & events,39.5835228,2.6583326,3.9937205,637.0,0.6041661709712599
+Gran Hotel,"Modernisme, art nouveau, architecture, antoni gaudí, and art",39.5716586,2.6496785,,,0.11
+Convent de Santa Clara,"Convent, monastery, and architecture",39.566825,2.6517215,4.580247,243.0,0.6889856643187068
+Rambla de Palma,Tree-lined promenade with flower kiosks,39.5741381,2.6488639,,,0.11
+Plaza España,Historical landmark,39.5756724,2.6536351,4.2577095,10085.0,0.7195279287208108
+Museu Diocesà de Mallorca,Religious museum in a 1200s palace,39.5669056,2.6490567,4.139535,43.0,0.6212750665255324
+Basilica of St. Michael,Catholic church,39.572883,2.6520488,4.5523114,822.0,0.6894383189299461
+Sa Feixina Park,Park,39.5707218,2.640264,4.318126,2455.0,0.6674055179112138
+Fundación Bartolomé March,Art & antique books in an elegant space,39.5686387,2.6474609,4.508197,122.0,0.6772078666538364
+Avenida Jaime III,Elegant & upscale shopping street,39.572155,2.6446941,,,0.11
+Mercat Pere Garau,Longtime market for local food vendors,39.5747087,2.6643003,4.2020736,6077.0,0.6790424359455992
+Can Forteza Rey,Art nouveau and antoni gaudí,39.5708474,2.6513069,4.5050507,99.0,0.6765514849076213
+Gerhardt Braun Gallery,Art and art museum,39.5707487,2.6445513,4.625,8.0,0.6938141519117269
+CaixaForum Palma,"Art exhibition, modernisme, and art",39.5716495,2.6500623000000005,4.4051385,1012.0,0.6688859918334615
+Consolat de Mar de Palma,Local government office,39.5689156,2.643669,4.142857,14.0,0.6215408158455222
+Passeig Mallorca,Route,39.5738054,2.6421924,,,0.11
+Parque Sa Riera,Green space with a playground & cafe,39.5853097,2.6372297,4.2444196,896.0,0.6438479541134204
+Centro Cultural Can Balaguer,Architecture,39.5716283,2.6477532,4.5392156,204.0,0.6825182137490378
+Balearic Transfer,Taxis,39.570658,2.652464,4.037037,27.0,0.6057720627020785
+Mission: Escape. Escape Room Mallorca,Art gallery and art,39.5790039,2.6514053000000004,4.820652,368.0,0.7260487879394406
+Plaza Del Mercat,Park,39.5713178,2.6489355,4.295351,1097.0,0.6530994808955607
+Parc de les Estacions,City park,39.5780437,2.6571715,3.9845679,2592.0,0.6184704043995382
+Device to Root out Evil,Tourist attraction,39.5712128,2.6420976,3.9890711,183.0,0.5998281399807543
+Roman Catholic Diocese of Majorca,Catholic church,39.566581,2.653886,4.769231,13.0,0.7154888968565564
+"Estàtua ""Es Foner""",Sculpture,39.5675739,2.6461574,4.4736843,38.0,0.6713573665807032
+Can Vivot,Tourist attraction,39.5696586,2.6520852,4.75,16.0,0.712628303823454
+Plaça del Rei Joan Carles I,Town square,39.57127560000001,2.647002,,,0.11
+tapas-tour,Point of interest,39.5754451,2.6506976,,,0.11
+GOB - Grup Balear d'Ornitologia I Defensa de la Naturalesa,Nature,39.5790126,2.6533713000000003,4.347826,23.0,0.652358336746215
+Ca'n Oms,Historical landmark,39.5687955,2.6498445,4.25,8.0,0.6375641519117269
+La Misericòrdia,Art,39.574852,2.6469634,4.286533,349.0,0.6457785771490892
+ABA ART LAB,Art,39.5711061,2.642582,4.7272725,44.0,0.7094437105144984
