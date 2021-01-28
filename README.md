@@ -12,3 +12,18 @@ Master's Thesis in Big Data Analysis in Economics and Business
     * Add penalty function to each place.
     * Stored as palmapointsofinterest_cln_pnl.csv
 
+4. simulation.py
+    * Execute the simulation for a desired number of tourists and time.
+        ```
+        python simulation.py --ntourists <ntourists> --time <time>
+        ```
+      or
+        ```
+        python simulation.py -n <ntourists> -t <time>
+        ```
+    * Output.
+        * Tourist routes: <br>
+            stored as palma_poi_troutes_\<ntourists>_\<time>.csv
+            
+        * Data summary by place and time: <br>
+            stored as palma_poi_summary_\<ntourists>_\<time>.csv
