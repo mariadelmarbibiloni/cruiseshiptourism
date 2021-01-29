@@ -2,8 +2,11 @@ import tasks as tsk
 import numpy as np
 import pandas as pd
 from tourist import Tourist
+import sys_arguments as sa
 import sys
-import getopt
+import time
+
+startTime = time.time()
 
 
 def set_penalty(row, lows, highs):
@@ -56,31 +59,9 @@ def simulation(df_tasks, ntourists, time=20):
     return {"tourist_routes": tourist_routes, "summary": summary_df}
 
 
-def get_sysarg():
-    try:
-        options, remainder = getopt.getopt(
-            sys.argv[1:],
-            'n:t:',
-            ['ntourists=',
-             'time=',
-             ])
-    except getopt.GetoptError as err:
-        print('ERROR:', err)
-        sys.exit(1)
-
-    ntourists, time = None, None
-    for opt, arg in options:
-        if opt in ('-n', '--ntourists'):
-            ntourists = arg
-        elif opt in ('-t', '--time'):
-            time = arg
-
-    return ntourists, time
-
-
 if __name__ == "__main__":
 
-    ntourists, time = get_sysarg()
+    ntourists, time = sa.get_sysarg()
     if not (ntourists or time):
         print('simulation.py -n <ntourists> -t <time>')
         sys.exit(1)
@@ -103,3 +84,6 @@ if __name__ == "__main__":
 
     sim_results["tourist_routes"].to_csv(f'palmadata/palma_poi_troutes_{ntourists}_{time}.csv', index=False)
     sim_results["summary"].to_csv(f'palmadata/palma_poi_summary_{ntourists}_{time}.csv', index=False)
+
+executionTime = (time.time() - startTime)
+print('Execution time: ' + str(executionTime) + ' seconds')
