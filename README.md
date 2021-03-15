@@ -8,7 +8,7 @@ Master's Thesis in Big Data Analysis in Economics and Business
 2. cleanpalmadata.ipynb
     * Clean data according to the model.
     * Stored as palmapointsofinterest_cleaned.csv
-3. addpenalty.ipynb
+3. addpenalty.py
     * Add penalty function to each place.
     * Stored as palmapointsofinterest_cln_pnl.csv
 
