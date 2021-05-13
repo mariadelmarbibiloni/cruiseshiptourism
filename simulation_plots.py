@@ -1,8 +1,8 @@
-import pandas as pd
 import cartopy.crs as ccrs
-import matplotlib.pyplot as plt
 import cartopy.io.img_tiles as cimgt
 import imageio
+import matplotlib.pyplot as plt
+import pandas as pd
 from pygifsicle import optimize
 import sys
 import sys_arguments as sa
@@ -55,7 +55,7 @@ def get_time_plots(tasks, time, ntourists):
         # values
         latitude = tasks.latitude
         longitude = tasks.longitude
-        n_tourists = summary.iloc[t] * 100
+        n_tourists = summary.iloc[t]*1.5
 
         # Map background
         fig = plt.figure(figsize=(20, 25))
@@ -89,7 +89,7 @@ def get_time_plots_gif(time, ntourists):
     images = []
     for t in range(0, time):
         images.append(imageio.imread(f"palmadata/plots/sim_{ntourists}_{t}.png"))
-    imageio.mimsave(f'palmadata/plots/sim_{ntourists}.gif', images)
+    imageio.mimsave(f'palmadata/plots/sim_{ntourists}.gif', images, duration=1)
     optimize(f"palmadata/plots/sim_{ntourists}.gif")
 
     return 0
@@ -125,5 +125,5 @@ if __name__ == "__main__":
                 dtype=int
             )
 
-    get_time_plots(tasks, time, ntourists)
-    get_time_plots_gif(time, ntourists)
+    get_time_plots(tasks, int(time), ntourists)
+    get_time_plots_gif(int(time), ntourists)
