@@ -1,12 +1,14 @@
-import tasks as tsk
+import logging
 import numpy as np
 import pandas as pd
-from tourist import Tourist
 import sys_arguments as sa
 import sys
-import time
+import tasks as tsk
+import time as t
+from tourist import Tourist
 
-startTime = time.time()
+startTime = t.time()
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 def set_penalty(row, lows, highs):
@@ -49,6 +51,7 @@ def simulation(df_tasks, ntourists, time=20):
                                   columns=[str(i) for i in range(0, time + 1)])
 
     for tourist in range(0, ntourists):
+        logging.info("Number of tourist: " + str(tourist))
         get_tourist = Tourist(df_tasks, time)
         get_tourist.tourist_route()
         for t in range(0, time):
@@ -85,5 +88,5 @@ if __name__ == "__main__":
     sim_results["tourist_routes"].to_csv(f'palmadata/palma_poi_troutes_{ntourists}_{time}.csv', index=False)
     sim_results["summary"].to_csv(f'palmadata/palma_poi_summary_{ntourists}_{time}.csv', index=False)
 
-executionTime = (time.time() - startTime)
+executionTime = (t.time() - startTime)
 print('Execution time: ' + str(executionTime) + ' seconds')
