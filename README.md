@@ -1,6 +1,11 @@
 # Cruise Ship Tourism
 Master's Thesis in Big Data Analysis in Economics and Business
 
+## Requirements
+
+* python packages: requirements.txt
+* system packages: proj 6.3.2-1. Cartopy py-package doesn't work with future versions.
+
 ## Order to generate data for the model <br>
 1. getdatapalma.py
     * Download data from google sites.
