@@ -18,13 +18,13 @@ Master's Thesis in Big Data Analysis in Economics and Business
     * Stored as palmapointsofinterest_cln_pnl.csv
 
 4. simulation.py
-    * Execute the simulation for a desired number of tourists and time.
+    * Execute the simulation for a desired number of tourists and time, the aggregation function, and the one-step decision function.
         ```
-        python simulation.py --ntourists <ntourists> --time <time>
+        python simulation.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method>
         ```
       or
         ```
-        python simulation.py -n <ntourists> -t <time>
+        python simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method>
         ```
     * Output.
         * Tourist routes: <br>
@@ -41,9 +41,9 @@ Master's Thesis in Big Data Analysis in Economics and Business
         
    * Execute get_time_plots and get_time_plots_gif.
      ```
-     python simulation_plots.py --ntourists <ntourists> --time <time>
+     python simulation_plots.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method>
      ```
      or
      ```
-     python simulation_plots.py -n <ntourists> -t <time>
+     python simulation_plots.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method>
      ```

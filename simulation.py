@@ -44,7 +44,7 @@ def add_utility(df):
     return df
 
 
-def simulation(df_tasks, ntourists, time=20):
+def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20):
     summary_df = pd.DataFrame(np.zeros(shape=(time, df_tasks.shape[0])),
                               columns=df_tasks['place'].values)
     tourist_routes = pd.DataFrame(np.zeros(shape=(ntourists, time + 1)),
@@ -53,7 +53,7 @@ def simulation(df_tasks, ntourists, time=20):
     for tourist in range(0, ntourists):
         logging.info("Number of tourist: " + str(tourist))
         get_tourist = Tourist(df_tasks, time)
-        get_tourist.tourist_route()
+        get_tourist.tourist_route(aggregation_function, decision_method)
         for t in range(0, time):
             tourist_routes.iloc[tourist, t] = get_tourist.task_route[t]
             summary_df.iloc[t, get_tourist.task_route[t]] += 1
@@ -64,10 +64,13 @@ def simulation(df_tasks, ntourists, time=20):
 
 if __name__ == "__main__":
 
-    ntourists, time = sa.get_sysarg()
-    if not (ntourists or time):
-        print('simulation.py -n <ntourists> -t <time>')
-        sys.exit(1)
+    ntourists, time, aggregation_function, decision_method = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function):
+        message = """
+        You must introduce all the parameters:
+            simulation.py -n <ntourists> -t <time> -ag <aggregation_function> -dm <decision_method>
+        """
+        raise Exception(message)
 
     tasks = pd.read_csv(
         "palmadata/palmapointsofinterest_cleaned.csv",
@@ -83,10 +86,14 @@ if __name__ == "__main__":
     )
     tasks = add_utility(tasks)
 
-    sim_results = simulation(tasks, int(ntourists), time=int(time))
+    sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time))
 
-    sim_results["tourist_routes"].to_csv(f'palmadata/palma_poi_troutes_{ntourists}_{time}.csv', index=False)
-    sim_results["summary"].to_csv(f'palmadata/palma_poi_summary_{ntourists}_{time}.csv', index=False)
+    sim_results["tourist_routes"].to_csv(
+        f'palmadata/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
+        index=False)
+    sim_results["summary"].to_csv(
+        f'palmadata/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
+        index=False)
 
 executionTime = (t.time() - startTime)
-print('Execution time: ' + str(executionTime) + ' seconds')
+logging.info('Execution time: ' + str(executionTime) + ' seconds')

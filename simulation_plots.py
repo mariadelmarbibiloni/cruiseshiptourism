@@ -8,7 +8,7 @@ import sys
 import sys_arguments as sa
 
 
-def get_tourist_route(tourist):
+def get_tourist_route(tasks, troutes, tourist):
     # values
     latitude = tasks['latitude'].values[troutes.iloc[tourist, :]]
     longitude = tasks['longitude'].values[troutes.iloc[tourist, :]]
@@ -96,10 +96,13 @@ def get_time_plots_gif(time, ntourists):
 
 
 if __name__ == "__main__":
-    ntourists, time = sa.get_sysarg()
-    if not (ntourists or time):
-        print('simulation.py -n <ntourists> -t <time>')
-        sys.exit(1)
+    ntourists, time, aggregation_function, decision_method = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function):
+        message = """
+        You must introduce all the parameters:
+            simulation.py -n <ntourists> -t <time> -ag <aggregation_function> -dm <decision_method>
+        """
+        raise Exception(message)
 
     tasks = pd.read_csv(
                 "palmadata/palmapointsofinterest_cleaned.csv",
@@ -115,12 +118,12 @@ if __name__ == "__main__":
             )
 
     troutes = pd.read_csv(
-                f"palmadata/palma_poi_troutes_{ntourists}_{time}.csv",
+                f"palmadata/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv",
                 header=0,
                 dtype=int
             )
     summary = pd.read_csv(
-                f"palmadata/palma_poi_summary_{ntourists}_{time}.csv",
+                f"palmadata/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv",
                 header=0,
                 dtype=int
             )

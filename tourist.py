@@ -1,4 +1,5 @@
 import tasks as tsk
+import numpy as np
 
 
 class Tourist:
@@ -8,7 +9,7 @@ class Tourist:
         self.task_route = [None] * (visit_time + 1)
         self.task_list = [None] * (visit_time + 1)
 
-    def tourist_route(self, tship=None):
+    def tourist_route(self, aggregation_function, decision_method, tship=None):
         if not tship:
             tship = round(0.75*self.visit_time, 0)
         time = 0
@@ -19,10 +20,15 @@ class Tourist:
         dist_matrix = tsk.get_distance_matrix(tasks.latitude, tasks.longitude)
         theta = dist_matrix.max() / 2
 
+        if decision_method == "maximum":
+            white_noise = [0] + list(np.random.normal(0, 0.25, size=len(tasks.utility)-1))
+            tasks.utility += white_noise
+
         print("time:", end=" ")
         while time < self.visit_time:
-            possibilities = tsk.get_transition_matrix(dist_matrix[i], tasks.utility, theta, 2)
-            i = tsk.choice_task(possibilities)
+            possibilities = tsk.get_transition_matrix(dist_matrix[i:i+1], tasks.utility, theta, 2, aggregation_function)
+            get_winner = tsk.DecisionMethods.select(decision_method)
+            i = get_winner(possibilities)
             time += 1
             print(str(time), end=" ")
             self.task_route[time] = i
