@@ -50,12 +50,15 @@ def get_tourist_route(tasks, troutes, tourist):
     plt.savefig(f'palmadata/plots/tourist{tourist}_route.png', dpi=199)
 
 
-def get_time_plots(tasks, time, ntourists):
-    for t in range(0, time):
+def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method):
+    for t in range(0, time+1):
         # values
         latitude = tasks.latitude
         longitude = tasks.longitude
-        n_tourists = summary.iloc[t]*1.5
+        if t < time:
+            n_tourists = summary.iloc[t] * 1.5
+        else:
+            n_tourists = summary.iloc[0] * 1.5
 
         # Map background
         fig = plt.figure(figsize=(20, 25))
@@ -80,17 +83,24 @@ def get_time_plots(tasks, time, ntourists):
                    color='red', alpha=0.5,
                    transform=ccrs.PlateCarree())
 
-        plt.savefig(f'palmadata/plots/sim_{ntourists}_{t}.png', dpi=199)
+        plt.savefig(f'palmadata/plots_{ntourists}_{aggregation_function}_{decision_method}/'
+                    + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}.png',
+                    dpi=199)
 
     return 0
 
 
-def get_time_plots_gif(time, ntourists):
+def get_time_plots_gif(time, ntourists, aggregation_function, decision_method):
+    path = f'palmadata/plots_{ntourists}_{aggregation_function}_{decision_method}/' \
+           + f'sim_{ntourists}_{aggregation_function}_{decision_method}.gif'
     images = []
     for t in range(0, time):
-        images.append(imageio.imread(f"palmadata/plots/sim_{ntourists}_{t}.png"))
-    imageio.mimsave(f'palmadata/plots/sim_{ntourists}.gif', images, duration=1)
-    optimize(f"palmadata/plots/sim_{ntourists}.gif")
+        images.append(imageio.imread(f'palmadata/plots_{ntourists}_{aggregation_function}_{decision_method}/'
+                                     + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}.png'))
+    imageio.mimsave(path,
+                    images,
+                    duration=1)
+    optimize(path)
 
     return 0
 
@@ -100,7 +110,7 @@ if __name__ == "__main__":
     if not (ntourists or time or aggregation_function):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -ag <aggregation_function> -dm <decision_method>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method>
         """
         raise Exception(message)
 
@@ -128,5 +138,5 @@ if __name__ == "__main__":
                 dtype=int
             )
 
-    get_time_plots(tasks, int(time), ntourists)
-    get_time_plots_gif(int(time), ntourists)
+    get_time_plots(tasks, int(time), ntourists, aggregation_function, decision_method)
+    get_time_plots_gif(int(time), ntourists, aggregation_function, decision_method)
