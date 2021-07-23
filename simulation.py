@@ -2,7 +2,6 @@ import logging
 import numpy as np
 import pandas as pd
 import sys_arguments as sa
-import sys
 import tasks as tsk
 import time as t
 from tourist import Tourist
