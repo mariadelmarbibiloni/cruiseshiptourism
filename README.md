@@ -10,14 +10,13 @@ Master's Thesis in Big Data Analysis in Economics and Business
 1. getdatapalma.py
     * Download data from google sites.
     * Stored as palmapointsofinterest.csv
+    
 2. cleanpalmadata.ipynb
     * Clean data according to the model.
     * Stored as palmapointsofinterest_cleaned.csv
-3. addpenalty.py
+    
+3. simulation.py
     * Add penalty function to each place.
-    * Stored as palmapointsofinterest_cln_pnl.csv
-
-4. simulation.py
     * Execute the simulation for a desired number of tourists and time, the aggregation function, and the one-step decision function.
         ```
         python simulation.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method>
@@ -33,7 +32,7 @@ Master's Thesis in Big Data Analysis in Economics and Business
         * Data summary by place and time: <br>
             stored as palma_poi_summary_\<ntourists>_\<time>.csv
             
-5. simulation_plots <br>
+4. simulation_plots <br>
    * Import function plots
         - get_tourist_route: select a tourist by nubmer and plot his route.
         - get_time_plots: for each time, plot the number of tourists by location.
