@@ -6,7 +6,7 @@ Master's Thesis in Big Data Analysis in Economics and Business
 * python packages: requirements.txt
 * system packages: proj 6.3.2-1. Cartopy py-package doesn't work with future versions.
 
-## Order to generate data for the model <br>
+## Order to generate data for the model and simulate the tourist flow <br>
 1. getdatapalma.py
     * Download data from google sites.
     * Stored as palmapointsofinterest.csv
