@@ -49,8 +49,8 @@ Master's Thesis in Big Data Analysis in Economics and Business
 
 5. simulation_results <br>
     * Make a heatmap for the desired simulation summary CSV. 
-    
-       * Execute simulation_results.py
+
+    * Execute simulation_results.py
      ```
      python simulation_results.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method>
      ```
