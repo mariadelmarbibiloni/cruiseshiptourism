@@ -17,6 +17,9 @@ if __name__ == "__main__":
                 header=0,
             )
 
+    # ncols = len(results.columns) # Uncomment if the user does not want task labels
+    # results.columns = range(0, ncols)
+
     data = results.T
     data = data.drop(0, 1)
 
@@ -25,4 +28,4 @@ if __name__ == "__main__":
             + f'Decision methon:      {dm} \n', fontsize=20)
     sns.heatmap(data, cmap="viridis")
 
-    plt.savefig(f'palmadata/summary_plots/summary_heat_map_{ntourists}_{time}_{af}_{dm}.png', dpi=199)
+    plt.savefig(f'palmadata/summary_plots/summary_heat_map_{ntourists}_{time}_{af}_{dm}_v2.png', dpi=199)
