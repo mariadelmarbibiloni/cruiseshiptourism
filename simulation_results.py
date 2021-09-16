@@ -46,7 +46,7 @@ if __name__ == "__main__":
     data = results.T
     data = data.drop(0, 1)
 
-    ax = plt.subplots(figsize=(35, 40))
+    ax = plt.subplots(figsize=(30, 20))
     plt.title(f'Aggregation function: {af}\n'
             + f'Decision methon:      {dm} \n',
             fontsize=40,
@@ -55,6 +55,7 @@ if __name__ == "__main__":
     sns.set(font_scale=3)
     res = sns.heatmap(data, cmap="viridis")
    
+    plt.xlabel('units of time', fontsize="27")
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize = 30)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize = 22) 
 
