@@ -88,10 +88,10 @@ if __name__ == "__main__":
     sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time))
 
     sim_results["tourist_routes"].to_csv(
-        f'palmadata/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
+        f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
         index=False)
     sim_results["summary"].to_csv(
-        f'palmadata/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
+        f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
         index=False)
 
 executionTime = (t.time() - startTime)
