@@ -4,17 +4,16 @@ import seaborn as sns
 import sys_arguments as sa
 
 if __name__ == "__main__":
-    ntourists, time, af, dm = sa.get_sysarg()
-    if not (ntourists or time or af or dm):
+    ntourists, time, af, dm, noise_numit, noise_mean = sa.get_sysarg()
+    if not (ntourists or time or af or dm or noise_numit or noise_mean):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method>
+            simulation_results.py --n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -i <noise_numit> -m <noise_mean>
         """
         raise Exception(message)
 
     results = pd.read_csv(
-                f"palmadata/palma_poi_summary_{ntourists}_{time}_{af}_{dm}.csv",
-                header=0,
+        f"test_sim/palma_poi_summary_{ntourists}_{time}_{af}_{dm}_noise_{noise_numit}_{noise_mean}.csv",                header=0,
             )
 
     # ncols = len(results.columns) # Uncomment if the user does not want task labels
@@ -44,7 +43,7 @@ if __name__ == "__main__":
        "Ca'n Oms", 'La Misericòrdia', 'ABA ART LAB']
     
     data = results.T
-    data = data.drop(0, 1)
+    data = data.drop([0], axis=1)
 
     ax = plt.subplots(figsize=(30, 20))
     plt.title(f'Aggregation function: {af}\n'
@@ -59,4 +58,4 @@ if __name__ == "__main__":
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize = 30)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize = 22) 
 
-    plt.savefig(f'palmadata/summary_plots/summary_heat_map_{ntourists}_{time}_{af}_{dm}.png', dpi=199)
+    plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{af}_{dm}_noise_{noise_numit}_{noise_mean}.png', dpi=199)

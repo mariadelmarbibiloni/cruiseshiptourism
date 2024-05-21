@@ -47,7 +47,7 @@ def get_tourist_route(tasks, troutes, tourist):
     for visit_order_, xpt, ypt in zip(visit_order, longitude, latitude):
         plt.text(xpt, ypt + 0.0005, visit_order_, horizontalalignment='right', transform=ccrs.Geodetic())
 
-    plt.savefig(f'palmadata/plots/tourist{tourist}_route.png', dpi=199)
+    plt.savefig(f'test_sim/plots/tourist{tourist}_route.png', dpi=199)
 
 
 def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method):
@@ -83,7 +83,7 @@ def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method
                    color='red', alpha=0.5,
                    transform=ccrs.PlateCarree())
 
-        plt.savefig(f'palmadata/plots_{ntourists}_{aggregation_function}_{decision_method}/'
+        plt.savefig(f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/'
                     + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}.png',
                     dpi=199)
 
@@ -91,11 +91,11 @@ def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method
 
 
 def get_time_plots_gif(time, ntourists, aggregation_function, decision_method):
-    path = f'palmadata/plots_{ntourists}_{aggregation_function}_{decision_method}/' \
+    path = f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/' \
            + f'sim_{ntourists}_{aggregation_function}_{decision_method}.gif'
     images = []
     for t in range(0, time):
-        images.append(imageio.imread(f'palmadata/plots_{ntourists}_{aggregation_function}_{decision_method}/'
+        images.append(imageio.imread(f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/'
                                      + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}.png'))
     imageio.mimsave(path,
                     images,
@@ -106,11 +106,11 @@ def get_time_plots_gif(time, ntourists, aggregation_function, decision_method):
 
 
 if __name__ == "__main__":
-    ntourists, time, aggregation_function, decision_method = sa.get_sysarg()
+    ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean = sa.get_sysarg()
     if not (ntourists or time or aggregation_function):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method>
+            simulation_plots.py --n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -i <noise_numit> -m <noise_mean>
         """
         raise Exception(message)
 
@@ -128,12 +128,12 @@ if __name__ == "__main__":
             )
 
     troutes = pd.read_csv(
-                f"palmadata/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv",
+                f"test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv",
                 header=0,
                 dtype=int
             )
     summary = pd.read_csv(
-                f"palmadata/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv",
+                f"test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv",
                 header=0,
                 dtype=int
             )

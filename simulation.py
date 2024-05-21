@@ -42,6 +42,26 @@ def add_utility(df):
 
     return df
 
+def add_noise(tasks_utility, numit=100, mean=0.25):
+    main_task_utility = tasks_utility.copy()
+    utilities = tasks_utility.copy()
+
+    white_noise = list(np.random.normal(0, mean, size=len(utilities)))
+    utilities  += white_noise
+    if numit > 1:
+        for n in range(1, numit):
+            white_noise = list(np.random.normal(0, mean, size=len(utilities)))
+            utilities += main_task_utility + white_noise
+
+    utilities = utilities/numit
+
+    for task in range(0, len(utilities)):
+        if utilities[task] <= 0:
+            utilities[task] = 10**(-6)
+        elif utilities[task] > 1:
+            utilities[task] = 1
+            
+    return utilities
 
 def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20):
     summary_df = pd.DataFrame(np.zeros(shape=(time, df_tasks.shape[0])),
@@ -63,11 +83,11 @@ def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=
 
 if __name__ == "__main__":
 
-    ntourists, time, aggregation_function, decision_method = sa.get_sysarg()
-    if not (ntourists or time or aggregation_function):
+    ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function or decision_method or noise_numit or noise_mean):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -ag <aggregation_function> -dm <decision_method>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -i <noise_numit> -m <noise_mean>
         """
         raise Exception(message)
 
@@ -84,14 +104,16 @@ if __name__ == "__main__":
         }
     )
     tasks = add_utility(tasks)
+    print(noise_mean)
+    tasks.utility = add_noise(tasks.utility, numit=int(noise_numit), mean=float(noise_mean))
 
     sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time))
 
     sim_results["tourist_routes"].to_csv(
-        f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
+        f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv',
         index=False)
     sim_results["summary"].to_csv(
-        f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}.csv',
+        f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv',
         index=False)
 
 executionTime = (t.time() - startTime)

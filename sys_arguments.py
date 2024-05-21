@@ -6,17 +6,19 @@ def get_sysarg():
     try:
         options, remainder = getopt.getopt(
             sys.argv[1:],
-            'n:t:a:d:',
+            'n:t:a:d:i:m:',
             ['ntourists=',
              'time=',
              'aggregation_function=',
-             'decision_method='
+             'decision_method=',
+             'noise_numit='
+             'noise_mean='
              ])
     except getopt.GetoptError as err:
         print('ERROR:', err)
         sys.exit(1)
 
-    ntourists, time, aggregation_function, decision_method = [None for i in range(4)]
+    ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean = [None for i in range(6)]
     for opt, arg in options:
         if opt in ('-n', '--ntourists'):
             ntourists = arg
@@ -26,5 +28,9 @@ def get_sysarg():
             aggregation_function = arg
         elif opt in ('-d', '--decision_method'):
             decision_method = arg
+        elif opt in ('-i', '--noise_numit'):
+            noise_numit = arg
+        elif opt in ('-m', '--noise_mean'):
+            noise_mean = arg
 
-    return ntourists, time, aggregation_function, decision_method
+    return ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean
