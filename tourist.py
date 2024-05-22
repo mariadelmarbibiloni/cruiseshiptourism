@@ -9,7 +9,7 @@ class Tourist:
         self.task_route = [None] * (visit_time + 1)
         self.task_list = [None] * (visit_time + 1)
 
-    def tourist_route(self, aggregation_function, decision_method, tship=None):
+    def tourist_route(self, aggregation_function, decision_method, tship=None, noise_it=100):
         if not tship:
             tship = round(0.75*self.visit_time, 0)
         time = 0
@@ -18,11 +18,11 @@ class Tourist:
         self.task_route[time] = 0
         self.task_list[time] = self.initial_tasks
         dist_matrix = tsk.get_distance_matrix(tasks.latitude, tasks.longitude)
-        theta = dist_matrix.max() / 2
-
-        if decision_method == "maximum":
-            white_noise = [0] + list(np.random.normal(0, 0.25, size=len(tasks.utility)-1))
-            tasks.utility += white_noise
+        dist_max = dist_matrix.max()
+        sort_dist = np.sort(np.ravel(dist_matrix.tolist()))
+        pos_dist = [d for d in sort_dist if d > 0]
+        dist_noise_mean = np.mean([np.random.normal(0, dist_max / 4) for i in range(1, noise_it)])
+        theta = max(dist_max / 2 + dist_noise_mean, np.min(pos_dist)) # Compare with minimum distance not 0
 
         print("time:", end=" ")
         while time < self.visit_time:

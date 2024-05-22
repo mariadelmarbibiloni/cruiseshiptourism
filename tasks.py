@@ -132,8 +132,7 @@ def get_distance_matrix(lat, lon):
 def get_transition_matrix(dist_matrix, utilities, theta, n, aggregation_function="product"):
     utilities_list = np.array(utilities)
     utilities_matrix = np.tile(utilities_list, (dist_matrix.shape[0], 1))
-
-    rf_distance_matrix = theta**n / (theta**n + dist_matrix**n)
+    rf_distance_matrix = theta**n/ (theta**n + dist_matrix**n)
     aggregate = AggregationFunctions.select(aggregation_function)
     return aggregate([utilities_matrix, rf_distance_matrix])
 

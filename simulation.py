@@ -63,7 +63,7 @@ def add_noise(tasks_utility, numit=100, mean=0.25):
             
     return utilities
 
-def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20):
+def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20, noise_it = 100):
     summary_df = pd.DataFrame(np.zeros(shape=(time, df_tasks.shape[0])),
                               columns=df_tasks['place'].values)
     tourist_routes = pd.DataFrame(np.zeros(shape=(ntourists, time + 1)),
@@ -72,7 +72,7 @@ def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=
     for tourist in range(0, ntourists):
         logging.info("Number of tourist: " + str(tourist))
         get_tourist = Tourist(df_tasks, time)
-        get_tourist.tourist_route(aggregation_function, decision_method)
+        get_tourist.tourist_route(aggregation_function, decision_method, noise_it)
         for t in range(0, time):
             tourist_routes.iloc[tourist, t] = get_tourist.task_route[t]
             summary_df.iloc[t, get_tourist.task_route[t]] += 1
@@ -104,10 +104,9 @@ if __name__ == "__main__":
         }
     )
     tasks = add_utility(tasks)
-    print(noise_mean)
     tasks.utility = add_noise(tasks.utility, numit=int(noise_numit), mean=float(noise_mean))
 
-    sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time))
+    sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time), noise_it=int(noise_numit))
 
     sim_results["tourist_routes"].to_csv(
         f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv',
