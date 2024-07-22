@@ -128,6 +128,37 @@ def get_distance_matrix(lat, lon):
     return squareform(pdist(coor_list, lambda p1, p2: vincenty(p1, p2, miles=False)))
 
 
+def ut_add_noise(tasks_utility, numit=100, mean=0.25):
+    main_task_utility = tasks_utility.copy()
+    utilities = tasks_utility.copy()
+
+    white_noise = list(np.random.normal(0, mean, size=len(utilities)))
+    utilities  += white_noise
+    if numit > 1:
+        for n in range(1, numit):
+            white_noise = list(np.random.normal(0, mean, size=len(utilities)))
+            utilities += main_task_utility + white_noise
+
+    utilities = utilities/numit
+
+    for task in range(0, len(utilities)):
+        if utilities[task] <= 0:
+            utilities[task] = 10**(-6)
+        elif utilities[task] > 1:
+            utilities[task] = 1
+            
+    return utilities
+
+def threshold_add_noise(tasks, dist_matrix, numit=100):
+    dist_max = dist_matrix.max()
+    sort_dist = np.sort(np.ravel(dist_matrix.tolist()))
+    pos_dist = [d for d in sort_dist if d > 0]
+    dist_noise_mean = np.mean([np.random.normal(0, dist_max / 4) for i in range(1, numit)])
+    theta = max(dist_max / 2 + dist_noise_mean, np.min(pos_dist)) # Compare with minimum distance not 0
+
+    return theta
+
+
 # Insert row i as dist_matrix to get possibilities vector for task i
 def get_transition_matrix(dist_matrix, utilities, theta, n, aggregation_function="product"):
     utilities_list = np.array(utilities)

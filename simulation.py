@@ -42,28 +42,7 @@ def add_utility(df):
 
     return df
 
-def add_noise(tasks_utility, numit=100, mean=0.25):
-    main_task_utility = tasks_utility.copy()
-    utilities = tasks_utility.copy()
-
-    white_noise = list(np.random.normal(0, mean, size=len(utilities)))
-    utilities  += white_noise
-    if numit > 1:
-        for n in range(1, numit):
-            white_noise = list(np.random.normal(0, mean, size=len(utilities)))
-            utilities += main_task_utility + white_noise
-
-    utilities = utilities/numit
-
-    for task in range(0, len(utilities)):
-        if utilities[task] <= 0:
-            utilities[task] = 10**(-6)
-        elif utilities[task] > 1:
-            utilities[task] = 1
-            
-    return utilities
-
-def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20, noise_it = 100):
+def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20, noise_it = 100, u_noise_mean=0.25):
     summary_df = pd.DataFrame(np.zeros(shape=(time, df_tasks.shape[0])),
                               columns=df_tasks['place'].values)
     tourist_routes = pd.DataFrame(np.zeros(shape=(ntourists, time + 1)),
@@ -104,9 +83,9 @@ if __name__ == "__main__":
         }
     )
     tasks = add_utility(tasks)
-    tasks.utility = add_noise(tasks.utility, numit=int(noise_numit), mean=float(noise_mean))
-
-    sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time), noise_it=int(noise_numit))
+    
+    sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time),
+         noise_it=int(noise_numit), u_noise_mean=float(noise_mean))
 
     sim_results["tourist_routes"].to_csv(
         f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv',
