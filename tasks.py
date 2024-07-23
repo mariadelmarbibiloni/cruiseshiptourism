@@ -1,4 +1,4 @@
-import math
+import math 
 import numpy as np
 from scipy.spatial.distance import pdist, squareform
 from vincenty import vincenty
@@ -35,6 +35,15 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
         base_agg = (1/n)*np.add(*functions_inv)
         return np.array([[1/f for f in base_agg]])
 
+
+    @staticmethod
+    def owa(functions, owa_vweight):
+        AggregationFunctions._raise_dimension_exception(functions)
+        f_matrix = np.matrix([i[0] for i in functions])
+        f_sort = np.sort(f_matrix, axis=0)
+        return np.array(np.average(f_sort, axis=0, weights=df['wheight'])).ravel()
+        
+ 
     @staticmethod
     def select(af_name):
         if af_name == "product":
@@ -43,12 +52,15 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
             return AggregationFunctions.minimum
         elif af_name == "harmonic_mean":
             return AggregationFunctions.harmonic_mean
+        elif af_name == "owa":
+            return AggregationFunctions.owa
         else:
             message = """
             You must select one of the following aggregation functions:
                 * product
                 * minimum
                 * harmonic_mean
+                * owa
             """
             raise Exception(message)
 
@@ -160,10 +172,12 @@ def threshold_add_noise(tasks, dist_matrix, numit=100):
 
 
 # Insert row i as dist_matrix to get possibilities vector for task i
-def get_transition_matrix(dist_matrix, utilities, theta, n, aggregation_function="product"):
+def get_transition_matrix(dist_matrix, utilities, theta, n, aggregation_function, owa_weight=[]):
     utilities_list = np.array(utilities)
     utilities_matrix = np.tile(utilities_list, (dist_matrix.shape[0], 1))
     rf_distance_matrix = theta**n/ (theta**n + dist_matrix**n)
     aggregate = AggregationFunctions.select(aggregation_function)
+    if owa_weight:
+        return aggregate([utilities_matrix, rf_distance_matrix], owa_weight)
     return aggregate([utilities_matrix, rf_distance_matrix])
 

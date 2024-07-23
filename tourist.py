@@ -9,7 +9,7 @@ class Tourist:
         self.task_route = [None] * (visit_time + 1)
         self.task_list = [None] * (visit_time + 1)
 
-    def tourist_route(self, aggregation_function, decision_method, tship=None, noise_it=100, u_noise_mean=0.25):
+    def tourist_route(self, aggregation_function, decision_method, tship=None, noise_it=100, u_noise_mean=0.25, owa_weight=[]):
         if not tship:
             tship = round(0.75*self.visit_time, 0)
         time = 0
@@ -28,7 +28,7 @@ class Tourist:
 
         print("time:", end=" ")
         while time < self.visit_time:
-            possibilities = tsk.get_transition_matrix(dist_matrix[i:i+1], tasks.utility, theta, 2, aggregation_function)
+            possibilities = tsk.get_transition_matrix(dist_matrix[i:i+1], tasks.utility, theta, 2, aggregation_function, owa_weight=[])
             get_winner = tsk.DecisionMethods.select(decision_method)
             i = get_winner(possibilities)
             time += 1
