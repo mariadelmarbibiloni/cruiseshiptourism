@@ -37,11 +37,11 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
 
 
     @staticmethod
-    def owa(functions, owa_vweight):
+    def owa(functions, owa_weight):
         AggregationFunctions._raise_dimension_exception(functions)
         f_matrix = np.matrix([i[0] for i in functions])
         f_sort = np.sort(f_matrix, axis=0)
-        return np.array(np.average(f_sort, axis=0, weights=df['wheight'])).ravel()
+        return np.array(np.average(f_sort, axis=0, weights=owa_weight)).ravel()
         
  
     @staticmethod

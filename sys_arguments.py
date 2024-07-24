@@ -6,7 +6,7 @@ def get_sysarg():
     try:
         options, remainder = getopt.getopt(
             sys.argv[1:],
-            'n:t:a:d:i:m:w',
+            'n:t:a:d:i:m:w:',
             ['ntourists=',
              'time=',
              'aggregation_function=',

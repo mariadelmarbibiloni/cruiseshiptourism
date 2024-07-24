@@ -52,7 +52,7 @@ def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=
     for tourist in range(0, ntourists):
         logging.info("Number of tourist: " + str(tourist))
         get_tourist = Tourist(df_tasks, time)
-        get_tourist.tourist_route(aggregation_function, decision_method, noise_it, owa_weight=[])
+        get_tourist.tourist_route(aggregation_function, decision_method, noise_it=noise_it, u_noise_mean=u_noise_mean, owa_weight=owa_weight)
         for t in range(0, time):
             tourist_routes.iloc[tourist, t] = get_tourist.task_route[t]
             summary_df.iloc[t, get_tourist.task_route[t]] += 1

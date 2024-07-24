@@ -50,7 +50,7 @@ def get_tourist_route(tasks, troutes, tourist):
     plt.savefig(f'test_sim/plots/tourist{tourist}_route.png', dpi=199)
 
 
-def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method):
+def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight):
     for t in range(0, time+1):
         # values
         latitude = tasks.latitude
@@ -84,19 +84,19 @@ def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method
                    transform=ccrs.PlateCarree())
 
         plt.savefig(f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/'
-                    + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}.png',
+                    + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}_{noise_numit}_{noise_mean}_{owa_weight}.png',
                     dpi=199)
 
     return 0
 
 
-def get_time_plots_gif(time, ntourists, aggregation_function, decision_method):
+def get_time_plots_gif(time, ntourists, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight):
     path = f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/' \
-           + f'sim_{ntourists}_{aggregation_function}_{decision_method}.gif'
+           + f'sim_{ntourists}_{aggregation_function}_{decision_method}_{noise_numit}_{noise_mean}_{owa_weight}.gif'
     images = []
     for t in range(0, time):
         images.append(imageio.imread(f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/'
-                                     + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}.png'))
+                                     + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}_{noise_numit}_{noise_mean}_{owa_weight}.png'))
     imageio.mimsave(path,
                     images,
                     duration=1)
@@ -106,11 +106,11 @@ def get_time_plots_gif(time, ntourists, aggregation_function, decision_method):
 
 
 if __name__ == "__main__":
-    ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean = sa.get_sysarg()
-    if not (ntourists or time or aggregation_function):
+    ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function or decision_method or noise_numit or noise_mean or owa_weight):
         message = """
         You must introduce all the parameters:
-            simulation_plots.py --n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -i <noise_numit> -m <noise_mean>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -i <noise_numit> -m <noise_mean> -w <owa_weight>
         """
         raise Exception(message)
 
@@ -128,15 +128,15 @@ if __name__ == "__main__":
             )
 
     troutes = pd.read_csv(
-                f"test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv",
+                f"test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}_{owa_weight}.csv",
                 header=0,
                 dtype=int
             )
     summary = pd.read_csv(
-                f"test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}.csv",
+                f"test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}_{owa_weight}.csv",
                 header=0,
                 dtype=int
             )
 
-    get_time_plots(tasks, int(time), ntourists, aggregation_function, decision_method)
-    get_time_plots_gif(int(time), ntourists, aggregation_function, decision_method)
+    get_time_plots(tasks, int(time), ntourists, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight)
+    get_time_plots_gif(int(time), ntourists, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight)

@@ -28,7 +28,7 @@ class Tourist:
 
         print("time:", end=" ")
         while time < self.visit_time:
-            possibilities = tsk.get_transition_matrix(dist_matrix[i:i+1], tasks.utility, theta, 2, aggregation_function, owa_weight=[])
+            possibilities = tsk.get_transition_matrix(dist_matrix[i:i+1], tasks.utility, theta, 2, aggregation_function, owa_weight=owa_weight)
             get_winner = tsk.DecisionMethods.select(decision_method)
             i = get_winner(possibilities)
             time += 1
