@@ -9,7 +9,7 @@ class Tourist:
         self.task_route = [None] * (visit_time + 1)
         self.task_list = [None] * (visit_time + 1)
 
-    def tourist_route(self, aggregation_function, decision_method, tship=None, noise_it=100, u_noise_mean=0.25, owa_weight=[]):
+    def tourist_route(self, aggregation_function, decision_method, tship=None, u_noise_mean=0.25, owa_weight=[]):
         if not tship:
             tship = round(0.75*self.visit_time, 0)
         time = 0
@@ -21,13 +21,13 @@ class Tourist:
         dist_matrix = tsk.get_distance_matrix(tasks.latitude, tasks.longitude)
 
         # def tourist distance threshold
-        theta = tsk.threshold_add_noise(tasks, dist_matrix, numit=noise_it)
+        theta = tsk.threshold_add_noise(tasks, dist_matrix)
 
         # def tourist task utility
-        tasks.utility = tsk.ut_add_noise(tasks.utility, numit=noise_it, mean=u_noise_mean)
+        tasks.utility = tsk.ut_add_noise(tasks.utility, mean=u_noise_mean)
 
         # def tourist task agglomeration
-        tasks.agglomeration_ct = tsk.ut_add_noise(tasks.agglomeration_ct, numit=noise_it, mean=25)
+        tasks.agglomeration_ct = tsk.ut_add_noise(tasks.agglomeration_ct, mean=25)
 
         print("time:", end=" ")
         while time < self.visit_time:
@@ -39,7 +39,7 @@ class Tourist:
             self.task_route[time] = i
             if i:
                 tasks.loc[[i], ["utility"]] = tasks.update_utility[i](tasks.utility[i])
-                tasks.loc[[i], ["agglomeration"]] =  agglomeration(tasks.agglomeration[i], ntourists)
+                tasks.loc[[i], ["agglomeration"]] =  agglomeration(tasks.agglomeration[i],          )
             elif time == tship or (time > 10 and self.task_route[time-1] == 0):
                 # If the tourist goes to the ship in time >= timeship, the tourist should stay in the ship
                 tasks.loc[[0], ["utility"]] = 1

@@ -11,7 +11,6 @@ def get_sysarg():
              'time=',
              'aggregation_function=',
              'decision_method=',
-             'noise_numit='
              'noise_mean='
              'owa_weight='
              ])
@@ -29,8 +28,6 @@ def get_sysarg():
             aggregation_function = arg
         elif opt in ('-d', '--decision_method'):
             decision_method = arg
-        elif opt in ('-i', '--noise_numit'):
-            noise_numit = arg
         elif opt in ('-m', '--noise_mean'):
             noise_mean = arg
         elif opt in ('-w', '--owa_weight'):
