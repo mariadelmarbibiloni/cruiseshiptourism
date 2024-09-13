@@ -46,10 +46,16 @@ if __name__ == "__main__":
     data = data.drop([0], axis=1)
 
     ax = plt.subplots(figsize=(30, 20))
-    plt.title(f'Aggregation function: {af}\n'
-            + f'Decision methon:      {dm} \n',
-            fontsize=40,
-            weight='bold')
+    if owa_weight:
+        plt.title(f'Aggregation function: {af} - {owa_weight}\n'
+                + f'Decision methon:      {dm} \n',
+                fontsize=40,
+                weight='bold')
+    else:
+        plt.title(f'Aggregation function: {af}\n'
+                + f'Decision methon:      {dm} \n',
+                fontsize=40,
+                weight='bold')
 
     sns.set(font_scale=3)
     res = sns.heatmap(data, cmap="viridis")

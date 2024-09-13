@@ -26,9 +26,12 @@ class Tourist:
         # def tourist task utility
         tasks.utility = tsk.ut_add_noise(tasks.utility, numit=noise_it, mean=u_noise_mean)
 
+        # def tourist task agglomeration
+        tasks.agglomeration_ct = tsk.ut_add_noise(tasks.agglomeration_ct, numit=noise_it, mean=25)
+
         print("time:", end=" ")
         while time < self.visit_time:
-            possibilities = tsk.get_transition_matrix(dist_matrix[i:i+1], tasks.utility, theta, 2, aggregation_function, owa_weight=owa_weight)
+            possibilities = tsk.get_transition_matrix(dist_matrix[i:i+1], tasks.utility, tasks.agglomeration, theta, 2, aggregation_function, owa_weight=owa_weight)
             get_winner = tsk.DecisionMethods.select(decision_method)
             i = get_winner(possibilities)
             time += 1
@@ -36,6 +39,7 @@ class Tourist:
             self.task_route[time] = i
             if i:
                 tasks.loc[[i], ["utility"]] = tasks.update_utility[i](tasks.utility[i])
+                tasks.loc[[i], ["agglomeration"]] =  agglomeration(tasks.agglomeration[i], ntourists)
             elif time == tship or (time > 10 and self.task_route[time-1] == 0):
                 # If the tourist goes to the ship in time >= timeship, the tourist should stay in the ship
                 tasks.loc[[0], ["utility"]] = 1

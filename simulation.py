@@ -43,6 +43,11 @@ def add_utility(df):
 
     return df
 
+def add_agglomeration(df):
+    df["agglomeration_ct"] = 100
+    df["agglomeration"] = 1
+    return df
+
 def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20, noise_it = 100, u_noise_mean=0.25, owa_weight=[]):
     summary_df = pd.DataFrame(np.zeros(shape=(time, df_tasks.shape[0])),
                               columns=df_tasks['place'].values)
@@ -84,6 +89,7 @@ if __name__ == "__main__":
         }
     )
     tasks = add_utility(tasks)
+    tasks = add_agglomeration(tasks)
     
     sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time),
          noise_it=int(noise_numit), u_noise_mean=float(noise_mean), owa_weight=ast.literal_eval(owa_weight))
