@@ -145,18 +145,18 @@ def agglomeration(alpha, ntourists):
     else:
         return 10**(-6)
 
-def ut_add_noise(tasks_utility, mean=0.25):
+def ut_add_noise(tasks_utility, sigma=0.25):
     main_task_utility = tasks_utility.copy()
     utilities = tasks_utility.copy()
 
-    white_noise = list(np.random.normal(0, mean, size=len(utilities)))
+    white_noise = list(np.random.normal(0, sigma, size=len(utilities)))
     utilities  += white_noise
 
-    for task in range(0, len(utilities)):
-        if utilities[task] <= 0:
-            utilities[task] = 10**(-6)
-        elif utilities[task] > 1:
-            utilities[task] = 1 
+    # for task in range(0, len(utilities)):
+    #     if utilities[task] <= 0:
+    #         utilities[task] = 10**(-6)
+    #     elif utilities[task] > 1:
+    #         utilities[task] = 1 
             
     return utilities
 
@@ -164,14 +164,17 @@ def threshold_add_noise(tasks, dist_matrix):
     dist_max = dist_matrix.max()
     sort_dist = np.sort(np.ravel(dist_matrix.tolist()))
     pos_dist = [d for d in sort_dist if d > 0]
-    dist_noise = np.random.normal(0, dist_max / 4)
-    theta = max(dist_max / 2 + dist_noise, np.min(pos_dist)) # Compare with minimum distance not 0
+    #dist_noise = np.random.normal(0, dist_max/8)
+    #theta = max(dist_max / 2 + dist_noise, np.min(pos_dist)/2) # Compare with minimum distance not 0
+    theta = dist_max / 2
 
     return theta
 
 
 # Insert row i as dist_matrix to get possibilities vector for task i
-def get_transition_matrix(dist_matrix, utilities, agglomeration, theta, n, aggregation_function, owa_weight=[]):
+def get_transition_matrix(dist_matrix, utilities,#
+        # agglomeration,
+        theta, n, aggregation_function, owa_weight=[]):
     utilities_list = np.array(utilities)
     utilities_matrix = np.tile(utilities_list, (dist_matrix.shape[0], 1))
 
@@ -183,5 +186,6 @@ def get_transition_matrix(dist_matrix, utilities, agglomeration, theta, n, aggre
     aggregate = AggregationFunctions.select(aggregation_function)
     if owa_weight:
         return aggregate([utilities_matrix, rf_distance_matrix, agglomeration_matrix], owa_weight)
-    return aggregate([utilities_matrix, rf_distance_matrix, agglomeration_matrix])
+    return aggregate([utilities_matrix, rf_distance_matrix#, agglomeration_matrix
+    ])
 

@@ -1,5 +1,6 @@
 import ast
 import logging
+from math import floor
 import numpy as np
 import pandas as pd
 import sys_arguments as sa
@@ -43,36 +44,52 @@ def add_utility(df):
 
     return df
 
-def add_agglomeration(df):
-    df["agglomeration_ct"] = 100
-    df["agglomeration"] = 1
+def add_num_tourists(df, ntourists):
+    tasks["num_tourists"] = 0
+    tasks.loc[[0], ["tourist_num"]] = ntourists
+
     return df
 
-def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20, u_noise_mean=0.25, owa_weight=[]):
+def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20, u_noise_sigma=0.25, owa_weight=[]):
     summary_df = pd.DataFrame(np.zeros(shape=(time, df_tasks.shape[0])),
                               columns=df_tasks['place'].values)
     tourist_routes = pd.DataFrame(np.zeros(shape=(ntourists, time + 1)),
                                   columns=[str(i) for i in range(0, time + 1)])
 
-    for tourist in range(0, ntourists):
-        logging.info("Number of tourist: " + str(tourist))
-        get_tourist = Tourist(df_tasks, time)
-        get_tourist.tourist_route(aggregation_function, decision_method, u_noise_mean=u_noise_mean, owa_weight=owa_weight)
-        for t in range(0, time):
-            tourist_routes.iloc[tourist, t] = get_tourist.task_route[t]
-            summary_df.iloc[t, get_tourist.task_route[t]] += 1
-        print("\n")
+    dist_matrix = tsk.get_distance_matrix(df_tasks.latitude, df_tasks.longitude)
+
+    tourists_obj = [None for i in range(0, ntourists)]
+    for t in range(0, time-1):
+        logging.info("Time " + str(t) + " to " + str(t+1))
+
+        for ntourist in range(0, ntourists):
+            if ntourist:
+                if ntourist % floor(0.1*ntourists) == 0:
+                    logging.info("Num. Tourist: " + str(ntourist))
+
+            if t == 0: #1st time we create a Tourist obj for each toruist
+                tourists_obj[ntourist] = Tourist(df_tasks, dist_matrix, time)
+
+            tourists_obj[ntourist].tourist_route(t, aggregation_function, decision_method, u_noise_sigma=u_noise_sigma, owa_weight=owa_weight)
+
+            if t==0: #count selected tasks in t = 0 and t+1. After t = 1, sum t+1.
+                tourist_routes.iloc[ntourist, t] = tourists_obj[ntourist].task_route[t]
+                summary_df.iloc[t, tourists_obj[ntourist].task_route[t]] += 1
+
+            tourist_routes.iloc[ntourist, t+1] = tourists_obj[ntourist].task_route[t+1]
+            summary_df.iloc[t+1, tourists_obj[ntourist].task_route[t+1]] += 1
+     
 
     return {"tourist_routes": tourist_routes, "summary": summary_df}
 
 
 if __name__ == "__main__":
 
-    ntourists, time, aggregation_function, decision_method, noise_mean, owa_weight = sa.get_sysarg()
-    if not (ntourists or time or aggregation_function or decision_method or noise_mean or owa_weight):
+    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function or decision_method or noise_sigma or owa_weight):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -m <noise_mean> -w <owa_weight>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <owa_weight>
         """
         raise Exception(message)
 
@@ -85,28 +102,29 @@ if __name__ == "__main__":
             "latitude": 'float',
             "longitude": 'float',
             "stars": 'float',
-            "reviews": 'float'
+            "reviews": 'float',
+            "utility": 'float'
         }
     )
     tasks = add_utility(tasks)
-    tasks = add_agglomeration(tasks)
+    tasks = add_num_tourists(tasks, ntourists)
     
     sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time),
-         u_noise_mean=float(noise_mean), owa_weight=ast.literal_eval(owa_weight))
+         u_noise_sigma=float(noise_sigma), owa_weight=ast.literal_eval(owa_weight))
 
     if not owa_weight:
         sim_results["tourist_routes"].to_csv(
-            f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_mean_{noise_mean}.csv',
+            f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}.csv',
             index=False)
         sim_results["summary"].to_csv(
-            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_mean_{noise_mean}.csv',
+            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}.csv',
             index=False)
     else:
         sim_results["tourist_routes"].to_csv(
-            f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_mean_{noise_mean}_{owa_weight}.csv',
+            f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_{owa_weight}.csv',
             index=False)
         sim_results["summary"].to_csv(
-            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_mean_{noise_mean}_{owa_weight}.csv',
+            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_{owa_weight}.csv',
             index=False)
 
 executionTime = (t.time() - startTime)

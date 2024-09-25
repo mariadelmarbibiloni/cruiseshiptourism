@@ -19,12 +19,18 @@ Master's Thesis in Big Data Analysis in Economics and Business
     * Add penalty function to each place.
     * Execute the simulation for a desired number of tourists and time, the aggregation function, and the one-step decision function.
         ```
-        python simulation.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method>
+        python simulation.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method> --noise_mean <noise_mean> --owa_weight <owa_weight>
         ```
       or
         ```
-        python simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method>
+        python simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -m <noise_mean> -w <owa_weight>
         ```
+    Example:
+        ```
+            python simulation.py -n 20 -t 5 -a minimum -d maximum -m 0.25 -w []
+        ```
+
+
     * Output.
         * Tourist routes: <br>
             stored as palma_poi_troutes_\<ntourists>_\<time>_\<aggregation_function>_\<decision_method>.csv
