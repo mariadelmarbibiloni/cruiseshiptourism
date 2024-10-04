@@ -6,7 +6,7 @@ def get_sysarg():
     try:
         options, remainder = getopt.getopt(
             sys.argv[1:],
-            'n:t:a:d:i:s:w:i:',
+            'n:t:a:d:i:s:w:i:g:',
             ['ntourists=',
              'time=',
              'aggregation_function=',
@@ -14,12 +14,13 @@ def get_sysarg():
              'noise_sigma=',
              'owa_weight=',
              'niterations=',
+             'ct_agglomeration='
              ])
     except getopt.GetoptError as err:
         print('ERROR:', err)
         sys.exit(1)
 
-    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations = [None for i in range(7)]
+    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations, ct_agglomeration = [None for i in range(8)]
     for opt, arg in options:
         if opt in ('-n', '--ntourists'):
             ntourists = arg
@@ -35,5 +36,7 @@ def get_sysarg():
             owa_weight = arg
         elif opt in ('-i', '--niterations'):
             niterations = arg
+        elif opt in ('-g', '--ct_agglomeration'):
+            ct_agglomeration = arg
 
-    return ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations
+    return ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations, ct_agglomeration

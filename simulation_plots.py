@@ -133,7 +133,7 @@ if __name__ == "__main__":
                 dtype=int
             )
     summary = pd.read_csv(
-                f"test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}_{owa_weight}.csv",
+                f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}.csv',
                 header=0,
                 dtype=int
             )

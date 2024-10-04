@@ -19,12 +19,12 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
     @staticmethod
     def product(functions):
         AggregationFunctions._raise_dimension_exception(functions)
-        return np.multiply(*functions)
+        return np.multiply.reduce(functions)
 
     @staticmethod
     def minimum(functions):
         AggregationFunctions._raise_dimension_exception(functions)
-        return np.minimum(*functions)
+        return np.asarray(functions).min(0)
 
     @staticmethod
     def harmonic_mean(functions):
@@ -139,53 +139,65 @@ def get_distance_matrix(lat, lon):
     coor_list = list(zip(lat, lon))
     return squareform(pdist(coor_list, lambda p1, p2: vincenty(p1, p2, miles=False)))
 
+
 def agglomeration(alpha, ntourists):
-    if ntourits <= alpha:
+    if ntourists < alpha:
         return 1 - (1/alpha)*ntourists
     else:
         return 10**(-6)
 
-def ut_add_noise(tasks_utility, sigma=0.25):
-    main_task_utility = tasks_utility.copy()
-    utilities = tasks_utility.copy()
 
-    white_noise = list(np.random.normal(0, sigma, size=len(utilities)))
-    utilities  += white_noise
+def ct_add_noise(tasks_parameter, sigma=0.25):
+    if type(tasks_parameter) == float:
+        parameter = [tasks_parameter]
+    else:
+        parameter = tasks_parameter.copy()
 
-    # for task in range(0, len(utilities)):
-    #     if utilities[task] <= 0:
-    #         utilities[task] = 10**(-6)
-    #     elif utilities[task] > 1:
-    #         utilities[task] = 1 
-            
-    return utilities
+    white_noise = list(np.random.normal(0, sigma, size=len(parameter)))
+    parameter  += white_noise
 
-def threshold_add_noise(tasks, dist_matrix):
+    for task in range(0, len(parameter)):
+        if parameter[task] <= 0:
+            parameter[task] = 10**(-6)
+        elif parameter[task] > 1:
+            parameter[task] = 1 
+
+    if type(tasks_parameter) == float:
+        return parameter[0]        
+    else:
+        return parameter
+
+
+def threshold(dist_matrix):
     dist_max = dist_matrix.max()
+    theta = dist_max / 2
     sort_dist = np.sort(np.ravel(dist_matrix.tolist()))
     pos_dist = [d for d in sort_dist if d > 0]
-    #dist_noise = np.random.normal(0, dist_max/8)
-    #theta = max(dist_max / 2 + dist_noise, np.min(pos_dist)/2) # Compare with minimum distance not 0
-    theta = dist_max / 2
+
+    return [theta, np.min(pos_dist)/2] # [theta, minimum dist != 0] 
+
+
+def threshold_add_noise(threshold):
+    max_ = threshold[0]
+    min_ = threshold[1]
+    
+    dist_noise = np.random.normal(0, max_/4)
+    theta = max(max_ + dist_noise, min_) # Compare with minimum distance not 0
 
     return theta
 
 
 # Insert row i as dist_matrix to get possibilities vector for task i
-def get_transition_matrix(dist_matrix, utilities,#
-        # agglomeration,
-        theta, n, aggregation_function, owa_weight=[]):
+def get_transition_matrix(dist_matrix, utilities, agglomeration, theta, n, aggregation_function, owa_weight=[]):
     utilities_list = np.array(utilities)
     utilities_matrix = np.tile(utilities_list, (dist_matrix.shape[0], 1))
-
-    agglomeration_list = np.array(agglomeration)
-    agglomeration_matrix = np.tile(agglomeration_list, (dist_matrix.shape[0], 1))
+    
+    agglomeration_matrix = np.tile(agglomeration, (dist_matrix.shape[0], 1))
 
     rf_distance_matrix = theta**n/ (theta**n + dist_matrix**n)
 
     aggregate = AggregationFunctions.select(aggregation_function)
     if owa_weight:
         return aggregate([utilities_matrix, rf_distance_matrix, agglomeration_matrix], owa_weight)
-    return aggregate([utilities_matrix, rf_distance_matrix#, agglomeration_matrix
-    ])
+    return aggregate([utilities_matrix, rf_distance_matrix, agglomeration_matrix])
 

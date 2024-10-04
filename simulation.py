@@ -44,19 +44,15 @@ def add_utility(df):
 
     return df
 
-def add_num_tourists(df, ntourists):
-    tasks["num_tourists"] = 0
-    tasks.loc[[0], ["tourist_num"]] = ntourists
-
-    return df
-
-def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=20, u_noise_sigma=0.25, owa_weight=[]):
+def simulation(df_tasks_, ntourists, aggregation_function, decision_method, ct_agglomeration, time=20, u_noise_sigma=0.25, owa_weight=[]):
+    df_tasks = df_tasks_.copy()
     summary_df = pd.DataFrame(np.zeros(shape=(time, df_tasks.shape[0])),
                               columns=df_tasks['place'].values)
     tourist_routes = pd.DataFrame(np.zeros(shape=(ntourists, time + 1)),
                                   columns=[str(i) for i in range(0, time + 1)])
 
     dist_matrix = tsk.get_distance_matrix(df_tasks.latitude, df_tasks.longitude)
+    ct_threshold =  tsk.threshold(dist_matrix) #[max, min]
 
     tourists_obj = [None for i in range(0, ntourists)]
     for t in range(0, time-1):
@@ -68,9 +64,18 @@ def simulation(df_tasks, ntourists, aggregation_function, decision_method, time=
                     logging.info("Num. Tourist: " + str(ntourist))
 
             if t == 0: #1st time we create a Tourist obj for each toruist
-                tourists_obj[ntourist] = Tourist(df_tasks, dist_matrix, time)
+                t_threshold = tsk.threshold_add_noise(ct_threshold)
+                t_agglomeration = ct_agglomeration + tsk.ct_add_noise(ct_agglomeration, sigma=0.25*ct_agglomeration)
+                
+                cruise_ut = df_tasks.loc[[0], ["utility"]]
+                df_tasks.utility = tsk.ct_add_noise(df_tasks.utility, sigma=u_noise_sigma)
+                df_tasks.loc[[0], ["utility"]] = cruise_ut
 
-            tourists_obj[ntourist].tourist_route(t, aggregation_function, decision_method, u_noise_sigma=u_noise_sigma, owa_weight=owa_weight)
+                tourists_obj[ntourist] = Tourist(df_tasks, dist_matrix, time, t_threshold, t_agglomeration)
+                df_tasks = df_tasks_.copy()
+                
+            tourists_obj[ntourist].tourist_route(t, aggregation_function, decision_method, summary_df,
+                u_noise_sigma=u_noise_sigma, owa_weight=owa_weight)
 
             if t==0: #count selected tasks in t = 0 and t+1. After t = 1, sum t+1.
                 tourist_routes.iloc[ntourist, t] = tourists_obj[ntourist].task_route[t]
@@ -91,11 +96,12 @@ def dataframe_mean(df_list):
 
 if __name__ == "__main__":
 
-    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations = sa.get_sysarg()
-    if not (ntourists or time or aggregation_function or decision_method or noise_sigma or owa_weight or niterations):
+    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations, ct_agglomeration = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function or decision_method or noise_sigma or owa_weight or niterations or ct_agglomeration):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <owa_weight> -i <niterations>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma>
+                 -w <owa_weight> -i <niterations> -g <ct_agglomeration>
         """
         raise Exception(message)
 
@@ -113,36 +119,37 @@ if __name__ == "__main__":
         }
     )
     tasks = add_utility(tasks)
-    tasks = add_num_tourists(tasks, ntourists)
     
     niterations = int(niterations)
     sim_summaries = [None] * niterations
     for i in range(0, niterations):
-        sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, time=int(time),
+        print ("Iteration " + str(i))
+        sim_results = simulation(tasks, int(ntourists), aggregation_function, decision_method, float(ct_agglomeration), time=int(time),
             u_noise_sigma=float(noise_sigma), owa_weight=ast.literal_eval(owa_weight))
+        print("\n")
         
         sim_summaries[i] = sim_results["summary"]
 
         #1st simulation result
         if i == 0:
-            if not owa_weight:
+            if not ast.literal_eval(owa_weight):
                 sim_results["tourist_routes"].to_csv(
-                    f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}.csv',
+                    f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.csv',
                     index=False)
             else:
                 sim_results["tourist_routes"].to_csv(
-                    f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_{owa_weight}_it-{niterations}.csv',
+                    f'test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_{owa_weight}_it-{niterations}_agg-{ct_agglomeration}.csv',
                     index=False)
 
     # mean of all simulations
     sim_summary=dataframe_mean(sim_summaries)
-    if not owa_weight:
+    if not ast.literal_eval(owa_weight):
         sim_summary.to_csv(
-            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}.csv',
+            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.csv',
             index=False)
     else:
         sim_summary.to_csv(
-            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_{owa_weight}_it-{niterations}.csv',
+            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_{owa_weight}_it-{niterations}_agg-{ct_agglomeration}.csv',
             index=False)
 
 executionTime = (t.time() - startTime)

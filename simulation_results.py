@@ -4,16 +4,17 @@ import seaborn as sns
 import sys_arguments as sa
 
 if __name__ == "__main__":
-    ntourists, time, af, dm, noise_sigma, owa_weight = sa.get_sysarg()
-    if not (ntourists or time or af or dm or noise_sigma or owa_weight):
+    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations, ct_agglomeration = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function or decision_method or noise_sigma or owa_weight or niterations):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <owa_weight>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <owa_weight> -i <niterations> -g <ct_agglomeration>
         """
         raise Exception(message)
 
     results = pd.read_csv(
-        f"test_sim/palma_poi_summary_{ntourists}_{time}_{af}_{dm}_noise_sigma_{noise_sigma}_{owa_weight}.csv",                header=0,
+                f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.csv',
+                header=0,
             )
 
     # ncols = len(results.columns) # Uncomment if the user does not want task labels
@@ -47,13 +48,13 @@ if __name__ == "__main__":
 
     ax = plt.subplots(figsize=(30, 20))
     if owa_weight:
-        plt.title(f'Aggregation function: {af} - {owa_weight}\n'
-                + f'Decision methon:      {dm} \n',
+        plt.title(f'Aggregation function: {aggregation_function} - {owa_weight}\n'
+                + f'Decision methon:      {decision_method} \n',
                 fontsize=40,
                 weight='bold')
     else:
-        plt.title(f'Aggregation function: {af}\n'
-                + f'Decision methon:      {dm} \n',
+        plt.title(f'Aggregation function: {aggregation_function}\n'
+                + f'Decision methon:      {decision_method} \n',
                 fontsize=40,
                 weight='bold')
 
@@ -64,4 +65,4 @@ if __name__ == "__main__":
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize = 30)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize = 22) 
 
-    plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{af}_{dm}_noise_{noise_sigma}_{owa_weight}.png', dpi=199)
+    plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
