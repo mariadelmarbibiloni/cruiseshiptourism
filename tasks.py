@@ -35,14 +35,70 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
         base_agg = (1/n)*np.add(*functions_inv)
         return np.array([[1/f for f in base_agg]])
 
-
     @staticmethod
     def owa(functions, owa_weight):
         AggregationFunctions._raise_dimension_exception(functions)
         f_matrix = np.matrix([i[0] for i in functions])
         f_sort = np.sort(f_matrix, axis=0) #ascending
         return np.array(np.average(f_sort, axis=0, weights=owa_weight)).ravel()
+
+    @staticmethod
+    def weighted_minimum(functions, weights)
+        AggregationFunctions._raise_dimension_exception(functions)
+        n_weights = [1 - w for w in weights]
         
+        max_w_f = functions.copy()
+        for i in range(0, len(functions)):
+            max_w_f[i] = [max(n_weights[i], f) for f in functions[i]]
+        
+        return np.asarray(max_w_f).min(0)
+
+    @staticmethod
+    def all_or_nothing(functions):
+        AggregationFunctions._raise_dimension_exception(functions)
+        minimum = np.asarray(functions).min(0)
+
+        all_or_nothing = np.zeros(len(functions))
+        for i in range(0, len(minimum)):
+            if minimum[i] == 1:
+                all_or_nothing[i] = 1
+        
+        return np.array(all_or_nothing)
+
+    @staticmethod
+    def wmean_of_mean_minimum(functions, p):
+        AggregationFunctions._raise_dimension_exception(functions)
+        mean = np.asarray(functions).mean(0)
+        minimum = np.asarray(functions).min(0)
+
+        return np.array([p*mean[i] + (1-p)*min[i] for i in range(0, len(mean))])
+
+    @staticmethod
+    def luk_weighted_mean(functions, weights)
+        AggregationFunctions._raise_dimension_exception(functions)
+        wmean = np.average(np.array(functions), axis=0, weights=weights)
+        sw = sum(weighs)
+
+        return np.array([max(0, wmean[i] + 1 - sw) for i in range(0, len(wmean))])
+
+    @staticmethod
+    def weighted_mean(functions, weights)
+        AggregationFunctions._raise_dimension_exception(functions)
+
+        return np.average(np.array(functions), axis=0, weights=weights)
+
+    @staticmethod
+    def dombi_mean(functions, weights, lambda=2)
+        AggregationFunctions._raise_dimension_exception(functions)
+
+        dombi_f = functions.copy()
+        for i in range(0, len(functions)):
+            dombi_f[i] = [ w[i]*(1-f/f)**lambda for f in functions[i]]
+        
+        dombi_m = np.asarray(dombi_f).sum(0)
+        dombi_m = [1/(1 + (dombi_m[i])**(1/lambda)) for i in range(0, len(dombi_m))]
+
+        return np.array(dombi_m)
  
     @staticmethod
     def select(af_name):
@@ -54,6 +110,18 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
             return AggregationFunctions.harmonic_mean
         elif af_name == "owa":
             return AggregationFunctions.owa
+        elif af_name == "weighted_minimum":
+            return AggregationFunctions.weighted_minimum
+        elif af_name == "all_or_nothing":
+            return AggregationFunctions.all_or_nothing
+        elif af_name == "wmean_of_mean_minimum":
+            return AggregationFunctions.wmean_of_mean_minimum
+        elif af_name == "luk_weighted_mean":
+            return AggregationFunctions.wmean_of_mean_minimum
+        elif af_name == "weighted_mean":
+            return AggregationFunctions.weighted_mean
+        elif af_name == "dombi_mean":
+            return AggregationFunctions.dombi_mean
         else:
             message = """
             You must select one of the following aggregation functions:
@@ -61,6 +129,12 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
                 * minimum
                 * harmonic_mean
                 * owa
+                * weighted_minimum
+                * all_or_nothing
+                * wmean_of_mean_minimum
+                * luk_weighted_mean
+                * weighted_mean
+                * dombi_mean
             """
             raise Exception(message)
 
