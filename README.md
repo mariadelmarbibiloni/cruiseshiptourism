@@ -33,7 +33,7 @@ Master's Thesis in Big Data Analysis in Economics and Business
             python simulation.py -n 10 -t 3 -a owa -d maximum -s 0.25 -w "[0.5, 0.4, 0.1]" -i 2 -g 4
             python simulation.py -n 10 -t 3 -a weighted_minimum -d maximum -s 0.25 -w "[0.05, 0.01, 0.03]" -i 2 -g 4
             python simulation.py -n 10 -t 3 -a all_or_nothing -d maximum -s 0.25 -w "[]" -i 2 -g 4
-            python simulation.py -n 10 -t 3 -a wmean_of_mean_minimum -d maximum -s 0.25 -w "[0.5]" -i 2 -g 42
+            python simulation.py -n 10 -t 3 -a wmean_of_mean_minimum -d maximum -s 0.25 -w "[0.5]" -i 2 -g 4
             python simulation.py -n 10 -t 3 -a luk_weighted_mean -d maximum -s 0.25 -w "[0.2,0.4,0.6]" -i 2 -g 4
             python simulation.py -n 10 -t 3 -a weighted_mean -d maximum -s 0.25 -w "[0.2,0.4,0.6]" -i 2 -g 4
             python simulation.py -n 10 -t 3 -a dombi_mean -d maximum -s 0.25 -w "[0.2,0.4,0.6]" -i 2 -g 4
