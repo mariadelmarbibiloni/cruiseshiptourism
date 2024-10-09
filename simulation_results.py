@@ -1,3 +1,4 @@
+import ast
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -12,7 +13,9 @@ if __name__ == "__main__":
         """
         raise Exception(message)
 
-    if not ast.literal_eval(af_weight)::
+    af_weight_eval = ast.literal_eval(af_weight)
+
+    if not af_weight_eval:
         results = pd.read_csv(
                 f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.csv',
                     header=0,
@@ -52,8 +55,8 @@ if __name__ == "__main__":
     data = data.drop([0], axis=1)
 
     ax = plt.subplots(figsize=(30, 20))
-    if owa_weight:
-        plt.title(f'Aggregation function: {aggregation_function} - {owa_weight}\n'
+    if af_weight_eval:
+        plt.title(f'Aggregation function: {aggregation_function} - {af_weight}\n'
                 + f'Decision methon:      {decision_method} \n',
                 fontsize=40,
                 weight='bold')
@@ -70,7 +73,7 @@ if __name__ == "__main__":
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize = 30)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize = 22) 
 
-    if af_weight:
-        plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
+    if af_weight_eval:
+        plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_afw_{af_weight}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
     else:
         plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
