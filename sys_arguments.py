@@ -6,13 +6,13 @@ def get_sysarg():
     try:
         options, remainder = getopt.getopt(
             sys.argv[1:],
-            'n:t:a:d:i:s:w:i:g:',
+            'n:t:a:d:s:w:i:g:',
             ['ntourists=',
              'time=',
              'aggregation_function=',
              'decision_method=',
              'noise_sigma=',
-             'owa_weight=',
+             'af_weight=',  #If is p, add as [p]
              'niterations=',
              'ct_agglomeration='
              ])
@@ -20,7 +20,7 @@ def get_sysarg():
         print('ERROR:', err)
         sys.exit(1)
 
-    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations, ct_agglomeration = [None for i in range(8)]
+    ntourists, time, aggregation_function, decision_method, noise_sigma, af_weight, niterations, ct_agglomeration = [None for i in range(8)]
     for opt, arg in options:
         if opt in ('-n', '--ntourists'):
             ntourists = arg
@@ -32,11 +32,11 @@ def get_sysarg():
             decision_method = arg
         elif opt in ('-s', '--noise_sigma'):
             noise_sigma = arg
-        elif opt in ('-w', '--owa_weight'):
-            owa_weight = arg
+        elif opt in ('-w', '--af_weight'):
+            af_weight = arg
         elif opt in ('-i', '--niterations'):
             niterations = arg
         elif opt in ('-g', '--ct_agglomeration'):
             ct_agglomeration = arg
 
-    return ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations, ct_agglomeration
+    return ntourists, time, aggregation_function, decision_method, noise_sigma, af_weight, niterations, ct_agglomeration

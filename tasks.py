@@ -29,9 +29,10 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
     @staticmethod
     def harmonic_mean(functions):
         AggregationFunctions._raise_dimension_exception(functions)
-        functions = functions
         n = len(functions)
-        functions_inv = [1/f for f in functions]
+        min_ = 10**(-6)*np.ones(len(functions[0][0]))
+
+        functions_inv = [1/np.asarray([f, [min_]]).max(0) for f in functions] #No divide by 0
         base_agg = (1/n)*np.add(*functions_inv)
         return np.array([[1/f for f in base_agg]])
 
@@ -43,20 +44,20 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
         return np.array(np.average(f_sort, axis=0, weights=owa_weight)).ravel()
 
     @staticmethod
-    def weighted_minimum(functions, weights)
+    def weighted_minimum(functions, weights):
         AggregationFunctions._raise_dimension_exception(functions)
         n_weights = [1 - w for w in weights]
         
         max_w_f = functions.copy()
         for i in range(0, len(functions)):
-            max_w_f[i] = [max(n_weights[i], f) for f in functions[i]]
+            max_w_f[i] = [max(n_weights[i], f) for f in functions[i][0]]
         
         return np.asarray(max_w_f).min(0)
 
     @staticmethod
     def all_or_nothing(functions):
         AggregationFunctions._raise_dimension_exception(functions)
-        minimum = np.asarray(functions).min(0)
+        minimum = np.asarray(functions).min(0)[0]
 
         all_or_nothing = np.zeros(len(functions))
         for i in range(0, len(minimum)):
@@ -66,15 +67,17 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
         return np.array(all_or_nothing)
 
     @staticmethod
-    def wmean_of_mean_minimum(functions, p):
+    def wmean_of_mean_minimum(functions, p_list):
         AggregationFunctions._raise_dimension_exception(functions)
-        mean = np.asarray(functions).mean(0)
-        minimum = np.asarray(functions).min(0)
+        p = p_list[0]
 
-        return np.array([p*mean[i] + (1-p)*min[i] for i in range(0, len(mean))])
+        mean = np.asarray(functions).mean(0)[0]
+        minimum = np.asarray(functions).min(0)[0]
+
+        return np.array([p*mean[i] + (1-p)*minimum[i] for i in range(0, len(mean))])
 
     @staticmethod
-    def luk_weighted_mean(functions, weights)
+    def luk_weighted_mean(functions, weights):
         AggregationFunctions._raise_dimension_exception(functions)
         wmean = np.average(np.array(functions), axis=0, weights=weights)
         sw = sum(weighs)
@@ -82,21 +85,25 @@ class AggregationFunctions:  # function is a list of numpy matrix functions with
         return np.array([max(0, wmean[i] + 1 - sw) for i in range(0, len(wmean))])
 
     @staticmethod
-    def weighted_mean(functions, weights)
+    def weighted_mean(functions, weights):
         AggregationFunctions._raise_dimension_exception(functions)
 
         return np.average(np.array(functions), axis=0, weights=weights)
 
     @staticmethod
-    def dombi_mean(functions, weights, lambda=2)
+    def dombi_mean(functions, weights, lambda_=2):
         AggregationFunctions._raise_dimension_exception(functions)
 
         dombi_f = functions.copy()
+
+        min_ = 10**(-6)*np.ones(len(functions[0][0]))
+        functions_inv = [1/np.asarray([f, [min_]]).max(0) for f in functions] #No divide by 0
+
         for i in range(0, len(functions)):
-            dombi_f[i] = [ w[i]*(1-f/f)**lambda for f in functions[i]]
+            dombi_f[i] = [ weights[i]*(1-f/f)**lambda_ for f in functions_inv[i][0]]
         
         dombi_m = np.asarray(dombi_f).sum(0)
-        dombi_m = [1/(1 + (dombi_m[i])**(1/lambda)) for i in range(0, len(dombi_m))]
+        dombi_m = [1/(1 + (dombi_m[i])**(1/lambda_)) for i in range(0, len(dombi_m))]
 
         return np.array(dombi_m)
  
@@ -262,7 +269,7 @@ def threshold_add_noise(threshold):
 
 
 # Insert row i as dist_matrix to get possibilities vector for task i
-def get_transition_matrix(dist_matrix, utilities, agglomeration, theta, n, aggregation_function, owa_weight=[]):
+def get_transition_matrix(dist_matrix, utilities, agglomeration, theta, n, aggregation_function, af_weight=[]):
     utilities_list = np.array(utilities)
     utilities_matrix = np.tile(utilities_list, (dist_matrix.shape[0], 1))
     
@@ -271,7 +278,7 @@ def get_transition_matrix(dist_matrix, utilities, agglomeration, theta, n, aggre
     rf_distance_matrix = theta**n/ (theta**n + dist_matrix**n)
 
     aggregate = AggregationFunctions.select(aggregation_function)
-    if owa_weight:
-        return aggregate([utilities_matrix, rf_distance_matrix, agglomeration_matrix], owa_weight)
+    if af_weight:
+        return aggregate([utilities_matrix, rf_distance_matrix, agglomeration_matrix], af_weight)
     return aggregate([utilities_matrix, rf_distance_matrix, agglomeration_matrix])
 

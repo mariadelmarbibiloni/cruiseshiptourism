@@ -4,18 +4,24 @@ import seaborn as sns
 import sys_arguments as sa
 
 if __name__ == "__main__":
-    ntourists, time, aggregation_function, decision_method, noise_sigma, owa_weight, niterations, ct_agglomeration = sa.get_sysarg()
-    if not (ntourists or time or aggregation_function or decision_method or noise_sigma or owa_weight or niterations):
+    ntourists, time, aggregation_function, decision_method, noise_sigma, af_weight, niterations, ct_agglomeration = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function or decision_method or noise_sigma or af_weight or niterations):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <owa_weight> -i <niterations> -g <ct_agglomeration>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <af_weight> -i <niterations> -g <ct_agglomeration>
         """
         raise Exception(message)
 
-    results = pd.read_csv(
+    if not ast.literal_eval(af_weight)::
+        results = pd.read_csv(
                 f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.csv',
-                header=0,
-            )
+                    header=0,
+                )
+    else:
+        results = pd.read_csv(
+            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_afw_{af_weight}_it-{niterations}_agg-{ct_agglomeration}.csv',
+            header=0,
+        )
 
     # ncols = len(results.columns) # Uncomment if the user does not want task labels
     # results.columns = range(0, ncols)
@@ -40,8 +46,7 @@ if __name__ == "__main__":
        'Parc de les Estacions', 'Device to Root out Evil',
        'Roman Catholic Diocese', 'Estàtua "Es Foner"', 'Can Vivot',
        'Plaça Rei Joan Carles I', 'tapas-tour',
-       "GOB",
-       "Ca'n Oms", 'La Misericòrdia', 'ABA ART LAB']
+       "GOB", "Ca'n Oms", 'La Misericòrdia', 'ABA ART LAB']
     
     data = results.T
     data = data.drop([0], axis=1)
@@ -65,4 +70,7 @@ if __name__ == "__main__":
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize = 30)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize = 22) 
 
-    plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
+    if af_weight:
+        plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
+    else:
+        plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)

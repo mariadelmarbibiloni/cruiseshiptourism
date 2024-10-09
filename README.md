@@ -19,17 +19,25 @@ Master's Thesis in Big Data Analysis in Economics and Business
     * Add penalty function to each place.
     * Execute the simulation for a desired number of tourists and time, the aggregation function, and the one-step decision function.
         ```
-        python simulation.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method> --noise_mean <noise_sigma> --owa_weight <owa_weight>
+        python simulation.py --ntourists <ntourists> --time <time> --aggregation_function <aggregation_function> --decision_method <decision_method> --noise_mean <noise_sigma> --af_weight <af_weight> --ct_agglomeration <ct_agglomeration>
         ```
       or
         ```
-        python simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <owa_weight> -i <niterations>
+        python simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -s <noise_sigma> -w <af_weight> -i <niterations> -g <ct_agglomeration>
         ```
-    Example:
+    Examples:
         ```
-            python simulation.py -n 10 -t 3 -a minimum -d maximum -s 0.25 -w "[]" -i 2
+            python simulation.py -n 10 -t 3 -a product -d maximum -s 0.25 -w "[]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a minimum -d maximum -s 0.25 -w "[]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a harmonic_mean -d maximum -s 0.25 -w "[]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a owa -d maximum -s 0.25 -w "[0.5, 0.4, 0.1]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a weighted_minimum -d maximum -s 0.25 -w "[0.05, 0.01, 0.03]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a all_or_nothing -d maximum -s 0.25 -w "[]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a wmean_of_mean_minimum -d maximum -s 0.25 -w "[0.5]" -i 2 -g 42
+            python simulation.py -n 10 -t 3 -a luk_weighted_mean -d maximum -s 0.25 -w "[0.2,0.4,0.6]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a weighted_mean -d maximum -s 0.25 -w "[0.2,0.4,0.6]" -i 2 -g 4
+            python simulation.py -n 10 -t 3 -a dombi_mean -d maximum -s 0.25 -w "[0.2,0.4,0.6]" -i 2 -g 4
         ```
-
 
     * Output.
         * Tourist routes: <br>

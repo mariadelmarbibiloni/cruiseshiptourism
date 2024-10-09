@@ -92,11 +92,11 @@ def get_time_plots(tasks, time, ntourists, aggregation_function, decision_method
 
 def get_time_plots_gif(time, ntourists, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight):
     path = f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/' \
-           + f'sim_{ntourists}_{aggregation_function}_{decision_method}_{noise_numit}_{noise_mean}_{owa_weight}.gif'
+           + f'sim_{ntourists}_{aggregation_function}_{decision_method}_{noise_numit}_{noise_mean}_{af_weight}.gif'
     images = []
     for t in range(0, time):
         images.append(imageio.imread(f'test_sim/plots_{ntourists}_{aggregation_function}_{decision_method}/'
-                                     + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}_{noise_numit}_{noise_mean}_{owa_weight}.png'))
+                                     + f'sim_{ntourists}_{t}_{aggregation_function}_{decision_method}_{noise_numit}_{noise_mean}_{af_weight}.png'))
     imageio.mimsave(path,
                     images,
                     duration=1)
@@ -106,11 +106,11 @@ def get_time_plots_gif(time, ntourists, aggregation_function, decision_method, n
 
 
 if __name__ == "__main__":
-    ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight = sa.get_sysarg()
-    if not (ntourists or time or aggregation_function or decision_method or noise_numit or noise_mean or owa_weight):
+    ntourists, time, aggregation_function, decision_method, noise_numit, noise_mean, af_weight = sa.get_sysarg()
+    if not (ntourists or time or aggregation_function or decision_method or noise_numit or noise_mean or af_weight):
         message = """
         You must introduce all the parameters:
-            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -i <noise_numit> -m <noise_mean> -w <owa_weight>
+            simulation.py -n <ntourists> -t <time> -a <aggregation_function> -d <decision_method> -i <noise_numit> -m <noise_mean> -w <af_weight>
         """
         raise Exception(message)
 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
             )
 
     troutes = pd.read_csv(
-                f"test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}_{owa_weight}.csv",
+                f"test_sim/palma_poi_troutes_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_{noise_numit}_{noise_mean}_afw_{af_weight}.csv",
                 header=0,
                 dtype=int
             )
@@ -138,5 +138,5 @@ if __name__ == "__main__":
                 dtype=int
             )
 
-    get_time_plots(tasks, int(time), ntourists, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight)
-    get_time_plots_gif(int(time), ntourists, aggregation_function, decision_method, noise_numit, noise_mean, owa_weight)
+    get_time_plots(tasks, int(time), ntourists, aggregation_function, decision_method, noise_numit, noise_mean, af_weight)
+    get_time_plots_gif(int(time), ntourists, aggregation_function, decision_method, noise_numit, noise_mean, af_weight)

@@ -13,7 +13,7 @@ class Tourist:
         self.task_list = [None] * (visit_time)
 
 
-    def tourist_route(self, time, aggregation_function, decision_method, summary_df, tship=None, u_noise_sigma=0.25, owa_weight=[]):
+    def tourist_route(self, time, aggregation_function, decision_method, summary_df, tship=None, u_noise_sigma=0.25, af_weight=[]):
         tasks = self.initial_tasks.copy()
 
         if not tship:
@@ -30,7 +30,7 @@ class Tourist:
         tasks_agglomeration = [tsk.agglomeration(self.alpha, ntourists_task) for ntourists_task in ntourists_4task]
 
         possibilities = tsk.get_transition_matrix(self.dist_matrix[i:i+1], tasks.utility, tasks_agglomeration,
-            self.theta, 2, aggregation_function, owa_weight=owa_weight)
+            self.theta, 2, aggregation_function, af_weight=af_weight)
         get_winner = tsk.DecisionMethods.select(decision_method)
         i = get_winner(possibilities)
 
