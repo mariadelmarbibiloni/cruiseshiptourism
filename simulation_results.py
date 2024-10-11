@@ -17,12 +17,12 @@ if __name__ == "__main__":
 
     if not af_weight_eval:
         results = pd.read_csv(
-                f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.csv',
+                f'test_sim/data_6500_1it/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.csv',
                     header=0,
                 )
     else:
         results = pd.read_csv(
-            f'test_sim/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_afw_{af_weight}_it-{niterations}_agg-{ct_agglomeration}.csv',
+            f'test_sim/data_6500_1it/palma_poi_summary_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_afw_{af_weight}_it-{niterations}_agg-{ct_agglomeration}.csv',
             header=0,
         )
 
@@ -74,6 +74,6 @@ if __name__ == "__main__":
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize = 22) 
 
     if af_weight_eval:
-        plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_afw_{af_weight}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
+        plt.savefig(f'test_sim/data_6500_1it/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_afw_{af_weight}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
     else:
-        plt.savefig(f'test_sim/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
+        plt.savefig(f'test_sim/data_6500_1it/summary_plots/summary_heat_map_{ntourists}_{time}_{aggregation_function}_{decision_method}_noise_sigma_{noise_sigma}_it-{niterations}_agg-{ct_agglomeration}.png', dpi=199)
