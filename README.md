@@ -27,7 +27,7 @@ Master's Thesis in Big Data Analysis in Economics and Business
         ```
     Examples:
         ```
-            python simulation.py -n 6500 -t 20 -a product -d maximum -s 0.25 -w "[]" -i 1 -g 1000
+            python simulation.py -n 6500 -t 20 -a product -d maximum -s 0.25 -w "[]" -i 1 -g d
             python simulation.py -n 6500 -t 20 -a minimum -d maximum -s 0.25 -w "[]" -i 1 -g 1000
             python simulation.py -n 10 -t 3 -a harmonic_mean -d maximum -s 0.25 -w "[]" -i 2 -g 4
             python simulation.py -n 10 -t 3 -a owa -d maximum -s 0.25 -w "[0.5, 0.4, 0.1]" -i 2 -g 4

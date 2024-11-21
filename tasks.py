@@ -153,7 +153,11 @@ class DecisionMethods:
         possibilities = possibilities.ravel()
         rng = np.random.default_rng()
         task_list = range(0, len(possibilities))
-        p_prob = possibilities/np.sum(possibilities)
+        sum_p = np.sum(possibilities)
+        if sum_p:
+            p_prob = possibilities/sum_p
+        else:
+            p_prob = np.ones(len(possibilities))/len(possibilities)
         return rng.choice(task_list, 1, p=p_prob)[0]
 
     @staticmethod
@@ -229,7 +233,7 @@ def agglomeration(alpha, ntourists):
 
 
 def ct_add_noise(tasks_parameter, sigma=0.25):
-    if type(tasks_parameter) == float:
+    if type(tasks_parameter) in [float, int]:
         parameter = [tasks_parameter]
     else:
         parameter = tasks_parameter.copy()
@@ -243,7 +247,7 @@ def ct_add_noise(tasks_parameter, sigma=0.25):
         elif parameter[task] > 1:
             parameter[task] = 1 
 
-    if type(tasks_parameter) == float:
+    if type(tasks_parameter) in [float, int]:
         return parameter[0]        
     else:
         return parameter
